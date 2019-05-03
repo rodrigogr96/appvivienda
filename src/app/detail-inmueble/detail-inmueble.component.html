@@ -1,0 +1,213 @@
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+      <div class="carousel-item active">
+          <img src="assets/img/bg_solicitud.png" class="d-block w-100 imgslide">
+      </div>
+  </div>
+</div>
+
+<div class="text-publica " *ngFor="let item of data ">
+  <div class="container">
+
+  <span><a (click)="backButton()" style="cursor: pointer">Regresar</a> / <a >Detalle Inmueble</a></span>
+
+  <h4 class="register_in_h4">{{user[item.id_user]}} TIENE :</h4>
+</div>
+</div>
+
+<div class="container"  *ngFor="let item of data ">
+  <div class="row">
+
+    <div class="col-12 text-center">
+
+         <h4 class="operacion">{{item.tipo_departamento}}</h4>
+
+          <br>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-6 detail_so tl">
+      <p>TIPO : <span>{{item.tipo_departamento}}</span></p>
+      <p>OPERACIÓN : <span>{{item.operacion}}</span></p>
+      <p>DORMITORIO : <span>{{item.cuartos}}</span></p>
+      <p>BAÑO : <span>{{item.bano}}</span></p>
+      <p>COCHERA : <span>{{item.cochera}}</span></p>
+      <p>PRESUPUESTO : <span>{{item.presupuesto.precio | currency:" "}} {{item.presupuesto.moneda}}</span></p>
+      <p>ÁREA : <span>{{item.area}} M²</span></p>
+      <p>VISTA : <span>{{item.vista}}</span> </p>
+      <p>TIPO : <span>{{item.tipo_depa}} </span></p>
+      <p>AMOBLADO : <span>{{item.amoblado}} </span></p>
+      <p>COSTO MANT : <span>{{item.mantenimiento.precio | currency:" "}} {{item.mantenimiento.moneda}}</span></p>
+      <p>DE ESTRENO : <span>{{item.estreno}} </span></p>
+      <p>EN PROYECTO : <span>{{item.proyecto}} </span></p>
+    </div>
+    <div class="col-lg-3 col-md-6 col-6 detail_so tr">
+        <p>BALCÓN O TERRAZA :
+          <span *ngIf="item.adicionales.terraza == true">SI</span>
+          <span *ngIf="item.adicionales.terraza == false">NO</span>
+        </p>
+        <p>MASCOTAS :
+            <span *ngIf="item.adicionales.mascota == true">SI</span>
+            <span *ngIf="item.adicionales.mascota == false">NO</span>
+          </p>
+        <p>DEPÓSITO :
+            <span *ngIf="item.adicionales.deposito == true">SI</span>
+            <span *ngIf="item.adicionales.deposito == false">NO</span>
+          </p>
+        <p>ASCENSOR :
+            <span *ngIf="item.adicionales.ascensor == true">SI</span>
+            <span *ngIf="item.adicionales.ascensor == false">NO</span></p>
+        <p>CUARTO DE SERVICIO :
+            <span *ngIf="item.adicionales.servicio == true">SI</span>
+            <span *ngIf="item.adicionales.servicio == false">NO</span></p>
+        <p>ACCESO DSCSDOS :
+            <span *ngIf="item.adicionales.dscp == true">SI</span>
+            <span *ngIf="item.adicionales.dscp == false">NO</span>
+          </p>
+        <p>SALA DE REUNIÓN :
+            <span *ngIf="item.adicionales.reunion == true">SI</span>
+            <span *ngIf="item.adicionales.reunion == false">NO</span>
+          </p>
+        <p>PISCINA :
+            <span *ngIf="item.adicionales.piscina == true">SI</span>
+            <span *ngIf="item.adicionales.piscina == false">NO</span>
+          </p>
+        <p>GIMNASIO :
+            <span *ngIf="item.adicionales.gym == true">SI</span>
+            <span *ngIf="item.adicionales.gym == false">NO</span>
+          </p>
+        <p>PARRILLA :
+            <span *ngIf="item.adicionales.parrilla == true">SI</span>
+            <span *ngIf="item.adicionales.parrilla == false">NO</span>
+          </p>
+        <p>JUEGOS :
+            <span *ngIf="item.adicionales.juego == true">SI</span>
+            <span *ngIf="item.adicionales.juego == false">NO</span>
+          </p>
+        <p>VIGILANCIA :
+            <span *ngIf="item.adicionales.vigilancia == true">SI</span>
+            <span *ngIf="item.adicionales.vigilancia == false">NO</span>
+          </p>
+    </div>
+    <div class="col-lg-6 col-md-12 col-12 text-center" >
+
+
+
+
+      <div class="ubicacion">
+        UBICACIÓN :
+      </div>
+      <div class="raya"></div>
+
+      <br><br>
+
+      <div class="spand-b">{{setDistrito(item.coddireccion)}} / {{setprovincia(item.coddireccion)}} - {{item.direccion}} <i class="fas fa-map-marker-alt"></i></div>
+        <div class="d-inline-flex" >
+
+          <br>
+        </div>
+
+        <br>
+
+
+
+
+
+
+              <agm-map style="height: 300px" [scrollwheel]="false" [latitude]="item.latitud" [longitude]="item.longitud" [zoom]="13" >
+
+                <agm-marker [latitude]="item.latitud" [longitude]="item.longitud" ></agm-marker>
+              </agm-map>
+
+
+
+
+
+    </div>
+
+    <div class="col-12 galeria_fotoss" style="padding:10px 0px;margin-top: 10px; border-top: 1px solid rgb(24, 52, 207,1)" >
+
+
+        <div class="col-12 text-left"><h4>Galería de Fotos: <span>*</span></h4><br></div>
+
+
+         <div class="row galeria_f"  style="margin: 0px; padding: 0px;">
+           <div class="modi col" *ngFor='let urls of item.image;let indice=index'>
+              <img  class="img-fluid"  [src]="urls.url"  (click)="abrirImagen(indice)" >
+
+          </div>
+         </div>
+   </div>
+
+   <div *ngIf="interes == true"  class=" col-12 justify-content-md-center wid"><br>
+    <div class="row justify-content-md-center">
+    <div class="fir_se" style="width: 140px">
+     <button (click)="postular()"  class="btn bg-blul button_red" style="width: 120px; height: 120px;"  >ME INTERESA</button>
+   </div>
+ </div>
+ <br><br>
+ </div>
+
+
+
+
+
+
+
+    <br><br>
+
+    <div class="visualizar">
+      <div class="fondo_b " >
+
+        <div class="row justify-content-md-center align-items-center">
+          <div class="col-1 "><img class="puntero" src="assets/img/left.png" (click)="btn_galeria('l')" alt="" style="float:right" width="30px"></div>
+        <div class="col-8 text-center " style="padding:0px">
+
+            <img [src]="imageurl"  class="img-fluid resp" alt="" >
+
+        </div>
+        <div class="col-1 "><img class="puntero" src="assets/img/right.png" (click)="btn_galeria('r')" alt="" width="30px"></div>
+      </div>
+      <span (click)="cerrra_visualizar()" title="Cerrar">x</span>
+      </div>
+
+      </div>
+
+
+  </div>
+</div>
+
+
+
+<div class="modal fade " id="modal_email" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable md-g" role="document" >
+        <div class="modal-content">
+
+            <div class="modal-body mdbody">
+                <div class="text-center">
+                    <a class="btn_cerrar_modal" data-dismiss="modal">X</a>
+                </div>
+                <br>
+                <div class="text-center"><i style="font-size: 60px;color: green" class="far fa-check-circle"></i></div>
+
+                <div class="text-center"><br> <h6>¡ GRACIAS !</h6></div>
+              <div class="text-center container"><br><p class="p-f">Tu informacion fue enviada a <span>{{nombre}}</span>  </p></div>
+
+              <div class="text-center container"><p class="p-s">
+                  <span>{{nombre}}</span> se pondrá en contacto contigo.
+              </p></div>
+
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+  <ngx-spinner
+  bdOpacity = 0.5
+  bdColor = "rgba(0,0,0,0.9)"
+  size = "large"
+  color = "#ffffff"
+  type = "ball-clip-rotate-multiple"
+  fullScreen = "true"
+  >
+  </ngx-spinner>

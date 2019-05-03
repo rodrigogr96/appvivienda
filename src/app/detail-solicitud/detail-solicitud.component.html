@@ -1,0 +1,467 @@
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+      <div class="carousel-item active">
+          <img src="assets/img/bg_solicitud.png" class="d-block w-100 imgslide">
+      </div>
+  </div>
+</div>
+
+<div class="text-publica " *ngFor="let item of data ">
+  <div class="container">
+
+  <span><a (click)="backButton()" style="cursor: pointer">Regresar</a> / <a >Detalle Solicitud</a></span>
+
+  <h4 class="register_in_h4">{{user[item.id_user]}} BUSCA :</h4>
+</div>
+</div>
+
+<div class="container"  *ngFor="let item of data ">
+<div class="row">
+
+  <div class="col-12 text-center">
+
+       <h4 class="operacion" *ngIf="item.operacion == 'VENTA'">COMPRAR</h4>
+       <h4 class="operacion" *ngIf="item.operacion == 'ALQUILER'">ALQUILAR</h4>
+       <h4 class="operacion" *ngIf="item.operacion == 'VACACIONAL'">VACACIONAR</h4>
+
+       <div *ngIf="item.operacion == 'VACACIONAL'" class="fecdate">
+         {{setfecha(item.rango.de) | date:'longDate'  }} / {{setfecha(item.rango.hasta) |  date:'longDate'   }}
+       </div>
+
+       <div *ngIf="item.radio.length > 0">
+        <div class="d-inline-flex sarea" >Selección por Área     <i class="fas fa-map-marker-alt"></i></div>
+       </div>
+
+       <div *ngIf="item.distrito.length > 0">
+            <div class="d-inline-flex" >
+              <span class="spand" *ngFor="let m of item.distrito" >{{setDistrito(m)}}</span>
+            </div>
+
+        </div>
+        <br>
+  </div>
+
+  <div class="col-lg-3 col-md-6 col-6 detail_so tl">
+    <p>TIPO : <span>{{item.tipo_departamento}}</span></p>
+    <p>OPERACIÓN : <span>{{item.operacion}}</span></p>
+    <p>DORMITORIO : <span>{{item.cuartos}}</span></p>
+    <p>BAÑO : <span>{{item.bano}}</span></p>
+    <p>COCHERA : <span>{{item.cochera}}</span></p>
+    <p>PRESUPUESTO : <span>{{item.presupuesto.precio | currency:" "}} {{item.presupuesto.moneda}}</span></p>
+    <p>ÁREA : <span>{{item.area}} M²</span></p>
+    <p>VISTA : <span>{{item.vista}}</span> </p>
+    <p>TIPO : <span>{{item.tipo_depa}} </span></p>
+    <p>AMOBLADO : <span>{{item.amoblado}} </span></p>
+    <p>COSTO MANT : <span>{{item.mantenimiento.precio | currency:" "}} {{item.mantenimiento.moneda}}</span></p>
+    <p>DE ESTRENO : <span>{{item.estreno}} </span></p>
+    <p>EN PROYECTO : <span>{{item.proyecto}} </span></p>
+  </div>
+  <div class="col-lg-3 col-md-6 col-6 detail_so tr">
+      <p>BALCÓN O TERRAZA :
+        <span *ngIf="item.adicionales.terraza == true">SI</span>
+        <span *ngIf="item.adicionales.terraza == false">INDISTINTO</span>
+      </p>
+      <p>MASCOTAS :
+          <span *ngIf="item.adicionales.mascota == true">SI</span>
+          <span *ngIf="item.adicionales.mascota == false">INDISTINTO</span>
+        </p>
+      <p>DEPÓSITO :
+          <span *ngIf="item.adicionales.deposito == true">SI</span>
+          <span *ngIf="item.adicionales.deposito == false">INDISTINTO</span>
+        </p>
+      <p>ASCENSOR :
+          <span *ngIf="item.adicionales.ascensor == true">SI</span>
+          <span *ngIf="item.adicionales.ascensor == false">INDISTINTO</span></p>
+      <p>CUARTO DE SERVICIO :
+          <span *ngIf="item.adicionales.servicio == true">SI</span>
+          <span *ngIf="item.adicionales.servicio == false">INDISTINTO</span></p>
+      <p>ACCESO DSCSDOS :
+          <span *ngIf="item.adicionales.dscp == true">SI</span>
+          <span *ngIf="item.adicionales.dscp == false">INDISTINTO</span>
+        </p>
+      <p>SALA DE REUNIÓN :
+          <span *ngIf="item.adicionales.reunion == true">SI</span>
+          <span *ngIf="item.adicionales.reunion == false">INDISTINTO</span>
+        </p>
+      <p>PISCINA :
+          <span *ngIf="item.adicionales.piscina == true">SI</span>
+          <span *ngIf="item.adicionales.piscina == false">INDISTINTO</span>
+        </p>
+      <p>GIMNASIO :
+          <span *ngIf="item.adicionales.gym == true">SI</span>
+          <span *ngIf="item.adicionales.gym == false">INDISTINTO</span>
+        </p>
+      <p>PARRILLA :
+          <span *ngIf="item.adicionales.parrilla == true">SI</span>
+          <span *ngIf="item.adicionales.parrilla == false">INDISTINTO</span>
+        </p>
+      <p>JUEGOS :
+          <span *ngIf="item.adicionales.juego == true">SI</span>
+          <span *ngIf="item.adicionales.juego == false">INDISTINTO</span>
+        </p>
+      <p>VIGILANCIA :
+          <span *ngIf="item.adicionales.vigilancia == true">SI</span>
+          <span *ngIf="item.adicionales.vigilancia == false">INDISTINTO</span>
+        </p>
+      <p>COMENTARIOS : <span>{{item.comentario}} </span></p>
+  </div>
+  <div class="col-lg-6 col-md-12 col-12 text-center" >
+
+
+
+
+    <div class="ubicacion">
+      UBICACIÓN :
+    </div>
+    <div class="raya"></div>
+
+    <br><br>
+    <div *ngIf="item.radio.length > 0">
+
+       </div>
+
+       <div *ngIf="item.distrito.length > 0">
+            <div class="d-inline-flex" >
+              <span class="spand-b" *ngFor="let m of item.distrito" >{{setDistrito(m)}}</span>
+            </div>
+
+        </div>
+        <br>
+
+        <div  *ngIf="item.radio.length > 0">
+            <agm-map style="height: 300px" [scrollwheel]="false" [latitude]="setmapalat(item.radio[0])" [longitude]="setmapalon(item.radio[0])"[zoom]="12" >
+                <agm-circle *ngFor="let m of item.radio;let indice=index" [latitude]="setmapalat(m)" [longitude]="setmapalon(m)"
+               [radius]="700"
+               [fillColor]="colors[indice]">
+               </agm-circle>
+            </agm-map>
+        </div>
+        <div   *ngIf="item.radio.length === 0">
+            <agm-map style="height: 300px" [scrollwheel]="false" [latitude]="-12.114090" [longitude]="-77.027842" [zoom]="13" >
+            </agm-map>
+        </div>
+
+  </div>
+</div>
+
+<div class="row" style="padding:20px 0px;">
+
+
+    <div class="col-lg-8 col-12 b-r" >
+      <div class="propuesta">PROPUESTAS QUE RECIBIÓ {{user[item.id_user]}} </div>
+
+
+      <div class="col-12" *ngFor="let items of inmueble  | paginate: {id: 'inmueble2', itemsPerPage: 2, currentPage: p } ">
+        <br>
+        <div class="item row">
+
+          <div class="col-sm-4 padding"  >
+
+          <img [src]="items.image[0]['url']" class="img-fluid foto_normal">
+
+          </div>
+          <div class="col-sm-8  padding" (click)="viewInmueble(items.id_inmueble)">
+              <div class="maps-renta row" style="margin:0px">
+
+                      <div class="col-6 margin_p text-left " >
+                          <div class="name-busca "><i class="fas fa-user"></i>{{user[items.id_user]}} LE OFRECE:</div>
+                      </div>
+                      <div class="col-6 margin_p text-right " >
+
+                          <div class="estados">{{items.operacion}}</div>
+                      </div>
+                      <div class="col-12 margin_p text-right">
+                          <div >{{setDistrito(items.coddireccion)}} / {{setprovincia(items.coddireccion)}} <i class="fas fa-map-marker-alt"></i></div>
+                      </div>
+
+                      <div class="col-12 margin_p"  >
+                        <div class="row" style="margin:0px">
+                          <div class="col-6 " style="padding-left: 0px;padding-right: 5px">
+                            <div class="border_s">
+                                <i class="fas fa-home"></i><span class="text-right" >{{items.tipo_departamento}}</span>
+                          </div>
+                        </div>
+                          <div class="col-6 " style="padding-right: 0px;padding-left: 5px">
+                            <div *ngIf="items.cuartos == 1">
+                              <div class="border_s">
+                                  <i class="fas fa-bed"></i><span class="text-right" >{{items.cuartos}} DORMITORIO </span>
+                                </div>
+                          </div>
+                          <div *ngIf="items.cuartos > 1">
+                              <div class="border_s">
+                                  <i class="fas fa-bed"></i><span class="text-right" >{{items.cuartos}} DORMITORIOS </span>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div >
+                      <br>
+                      <div class="col-12 margin_p_10"  >
+                          <div class="row" style="margin:0px">
+
+                            <div class="col-lg-3 col-md-3 col-6 pl" >
+                              <div class="border_s"><i class="fab fa-medium"></i><span class="text-right" >{{items.area}} M²</span>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-6 plr">
+                              <div *ngIf="items.bano == 1">
+                                <div class="border_s"><i class="fas fa-toilet"></i><span class="text-right" >{{items.bano}} BAÑO </span>
+                                </div>
+                              </div>
+                              <div *ngIf="items.bano >1">
+                                  <div class="border_s"><i class="fas fa-toilet"></i><span class="text-right" >{{items.bano}} BAÑOS </span>
+                                  </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-5 col-md-5 col-sm-12 pr" >
+                              <div class="border_s"><i class="fas fa-dollar-sign"></i><span class="text-right" >{{items.presupuesto.precio | currency:" "}} {{items.presupuesto.moneda}}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+
+              </div>
+          </div>
+      </div>
+
+      </div>
+
+      <br>
+
+                      <div class="col-12 text-center" >
+                        <pagination-controls
+                       (pageChange)="p = $event"
+                       previousLabel="<"
+                       nextLabel=">"
+                       id="inmueble2"
+                       >
+                      </pagination-controls>
+                    </div>
+
+
+    </div>
+
+    <div class="col-lg-4 col-12">
+      <br>
+        <div class="prt">PRESENTA</div>
+        <div class="prt">TU PROPUESTA : </div>
+
+        <div class=" col-12 justify-content-md-center wid"><br>
+          <div class="row justify-content-md-center">
+          <div class="fir_se">
+           <button (click)="match()"  class="btn bg-blul button_red"  >POSTULA</button>
+         </div>
+       </div>
+       </div>
+
+       <div class="alerta text-center col-12" ><br>
+          <img src="assets/img/alerta.png" alt="">
+          <p>Recuerda que tu Inmueble debe cumplir con todas las características solicitadas.</p>
+        </div>
+
+      </div>
+
+
+  <br><br>
+</div>
+
+
+<div class="modal fade" id="modal_list_inmuebles" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable md-g" role="document" >
+      <div class="modal-content">
+
+          <div class="modal-body mdbody">
+              <div class="text-center">
+                  <div class="text-center"><h6>INMUEBLES</h6></div>
+                  <a class="btn_cerrar_modal" data-dismiss="modal">X</a>
+              </div>
+
+              <div  class="text-center dispal" *ngIf="arrayInmueble.length === 0" >
+                  <img src="assets/img/alerta.png" alt="">
+                <p class="p_login">Lo sentimos, no cuenta con Inmuebles registrados.</p>
+                <a class="btn nuevo_i_d" (click)="redireccionar('registro-inmueble')">NUEVO INMUEBLE</a>
+              </div>
+
+              <div  class="text-center" *ngIf="arrayInmueble.length > 0" >
+
+
+                  <div *ngFor="let items of arrayInmueble   | paginate: {id: 'inmueble', itemsPerPage: 2, currentPage: p } ;let indice=index ">
+
+                        <div class="item row" style="margin:5px 0px">
+
+                            <div class="col-sm-6 padding"  >
+
+                            <img [src]="items.image[0]['url']" class="img-fluid foto_normal">
+
+                            </div>
+                            <div class="col-sm-6  padding" (click)="select(indice, items.id_inmueble )">
+                                <div class="maps-renta row" style="margin:0px">
+
+
+                                        <div class="col-sm-12 margin_d  text-right" >
+                                         <br>
+                                            <div class="estados">{{items.operacion}}</div>
+                                        </div>
+                                        <div class="col-sm-12 margin_d text-right">
+                                            <div >{{setDistrito(items.coddireccion)}} / {{setprovincia(items.coddireccion)}} <i class="fas fa-map-marker-alt"></i></div>
+                                        </div>
+
+                                        <div class="col-sm-12 margin_d text-left " >
+                                            <div class="border_s">
+                                                <i class="fas fa-home text-left "></i><span class="text-right" >{{items.tipo_departamento}}</span>
+                                          </div>
+                                        </div>
+
+                                        <div class="col-sm-12 margin_d text-left">
+                                            <div class="border_s">
+                                                <i class="fas fa-home text-left"></i><span class="text-right" >{{items.area}} M²</span>
+                                          </div>
+                                        </div>
+
+                                        <div class="col-sm-12 margin_d text-left">
+                                            <div class="border_s text-left"><i class="fas fa-dollar-sign"></i><span class="text-right" >{{items.presupuesto.precio | currency:" "}} {{items.presupuesto.moneda}}</span>
+                                          </div>
+                                        </div>
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <div class="col-12 text-center" >
+                      <pagination-controls
+                     (pageChange)="p = $event"
+                     previousLabel="<"
+                     nextLabel=">"
+                     id="inmueble"
+                     >
+                    </pagination-controls>
+                  </div>
+
+
+
+              </div>
+
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal_nomatch" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable md-g" role="document" >
+        <div class="modal-content">
+
+            <div class="modal-body mdbody">
+                <div class="text-center">
+                    <a class="btn_cerrar_modal" data-dismiss="modal">X</a>
+                </div>
+
+                <div  class="text-center"  >
+                    <img src="assets/img/alerta.png" alt="">
+                  <p class="p_login">Lo sentimos, tu inmueble no cúmple
+                      con algunos requerimientos de la solicitud</p>
+                </div>
+
+                <div class="row" style="margin:0px">
+
+                  <div class="col-4 "></div>
+                  <div class="col-4 text-center text-1">SOLICITUD</div>
+                  <div class="col-4 text-center text-1">INMUEBLE</div>
+
+                </div>
+
+                <div *ngFor="let item of noMatch "  class="row" style="margin:5px 0px">
+
+
+
+                    <div class="col-4 text-3">{{item.name}} :</div>
+                    <div class="col-4 text-center text-3" style="border-right: 1px  solid rgb(24, 52, 207) " >{{item.valor1}}</div>
+                    <div class="col-4 text-center text-2" style="color:red">{{item.valor2}}</div>
+
+                 </div>
+
+                 <div class="text-center">
+<br>
+                    <a class="btn nuevo_i_d" (click)="editarInmueble(id_inmueble)">EDITAR INMUEBLE</a>
+                 </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="modal fade " id="modal_exitoso" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable md-g" role="document" >
+        <div class="modal-content">
+
+            <div class="modal-body mdbody">
+                <div class="text-center">
+                    <a class="btn_cerrar_modal" data-dismiss="modal">X</a>
+                </div>
+                <br>
+                <div class="text-center"><i style="font-size: 60px;color: green" class="far fa-check-circle"></i></div>
+
+                <div class="text-center"><br> <h6>¡ Envío Exitoso !</h6></div>
+              <div class="text-center container"><br><p class="p-f">La informacion de tu inmueble fue enviada a  <span>{{user[item.id_user]}}</span></p></div>
+
+              <div class="text-center container"><p class="p-s">
+                Si <span>{{user[item.id_user]}}</span> le interesa tu <span>{{data[0]["tipo_departamento"]}}</span>  te llegará un correo de la información de
+                <span>{{user[item.id_user]}}</span>
+              </p></div>
+
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="modal fade " id="modal_permiso" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable md-g" role="document" >
+          <div class="modal-content">
+
+              <div class="modal-body mdbody">
+                  <div class="text-center">
+                      <a class="btn_cerrar_modal" data-dismiss="modal">X</a>
+                  </div>
+                  <br>
+                  <div  class="text-center dispal"  >
+                      <img src="assets/img/alerta.png" alt="">
+                    <p class="p_login">¿Deseas tener una propuesta a tu medida? <span> Registra tu solicitud.</span></p>
+                  </div>
+
+                  <div class="text-center">
+
+                     <a class="btn nuevo_i_d" (click)="redireccionar('registro-solicitud')">NUEVA SOLICITUD</a>
+                  </div>
+
+
+              </div>
+          </div>
+      </div>
+    </div>
+
+
+  <ngx-spinner
+bdOpacity = 0.5
+bdColor = "rgba(0,0,0,0.9)"
+size = "large"
+color = "#ffffff"
+type = "ball-clip-rotate-multiple"
+fullScreen = "true"
+>
+<p style="font-size: 20px; color: white">Match Solicitud | Inmueble</p>
+</ngx-spinner>

@@ -1,0 +1,30 @@
+.d-i{
+  display: inline-block
+}
+
+.izquierda{
+  float: left
+}
+.derecha{
+  float: right
+}
+.white{
+  color: white;
+}
+.mg-bottom{
+  margin-bottom:13em
+}
+.item{
+  /* background: #3f4dda; */
+   padding:1em;margin:1em;
+  border: solid #3f4dda .5px;
+  }
+
+.padding{
+  padding: 1.5em;
+}
+
+.botom-border{
+  border: solid blue 1px;
+  text-align: center;
+}

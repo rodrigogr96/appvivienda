@@ -1,0 +1,165 @@
+<ngx-spinner
+bdOpacity = 0.5
+bdColor = "rgba(0,0,0,0.9)"
+size = "large"
+color = "#ffffff"
+type = "ball-clip-rotate-multiple"
+fullScreen = "true"
+>
+</ngx-spinner>
+
+
+
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="assets/img/bg_home.jpg" class="d-block w-100 imgslide">
+                        <div class="carousel-caption  d-md-block">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col  text-right btn_prin" (click)="redireccionar('registro-solicitud')">
+                                        <h6 class="h6"  >QUIERES UN INMUEBLE</h6>
+                                    </div>
+                                    <div class="col  text-left btn_prin" (click)="redireccionar('registro-inmueble')">
+                                        <h6 class="h6">TIENES UN INMUEBLE</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+
+                </div>
+            </div>
+
+<div class="text-publica text-center">
+
+    <h4>Últimas Publicaciones</h4>
+
+</div>
+
+
+
+<div class="container mod_pub">
+    <div class="row" style="margin :0px">
+        <div class="col-12 text-center ver_s">
+
+            <span title="Ver Más" (click)="redireccionar('search')">Ver todas las Solicitudes</span><br>
+            <img  class="animation"  src="assets/img/btn_b.png" alt="" width="30px">
+          </div>
+      <div class="col-lg-2"></div>
+<div class="col-lg-8" >
+
+    <!-- <div *ngIf="_rentalPublications != null && _rentalPublications.length > 0" class="col-sm-12"> -->
+    <div *ngFor="let item of data ">
+      <br>
+        <div class="item row" >
+
+            <div class="col-sm-4 padding" *ngIf="item.radio.length > 0">
+                <agm-map [scrollwheel]="false" [latitude]="setmapalat(item.radio[0])" [longitude]="setmapalon(item.radio[0])"[zoom]="12" >
+                    <agm-circle *ngFor="let m of item.radio;let indice=index" [latitude]="setmapalat(m)" [longitude]="setmapalon(m)"
+                   [radius]="700"
+                   [fillColor]="colors[indice]">
+                   </agm-circle>
+                </agm-map>
+            </div>
+            <div class="col-sm-4 padding" *ngIf="item.radio.length === 0">
+                <agm-map [scrollwheel]="false" [latitude]="-12.114090" [longitude]="-77.027842" [zoom]="13" >
+                </agm-map>
+            </div>
+
+
+            <div class="col-sm-8  padding" (click)="viewSolicitud(item.id_solicitud)">
+                <div class="maps-renta row" style="margin:0px">
+
+                        <div class="col-6 margin_p text-left " >
+                            <div class="name-busca "><i class="fas fa-user"></i>{{user[item.id_user]}} BUSCA:</div>
+                        </div>
+                        <div class="col-6 margin_p text-right " >
+                          <div *ngIf="item.operacion == 'VENTA'">
+
+                              <div class="estados">COMPRAR</div>
+                          </div>
+                          <div *ngIf="item.operacion == 'ALQUILER'">
+
+                              <div class="estados">ALQUILAR</div>
+                          </div>
+                          <div *ngIf="item.operacion == 'VACACIONAL'">
+
+                              <div class="estados">VACACIONAR</div>
+                          </div>
+                        </div>
+                        <div class="col-12 margin_p text-right" *ngIf="item.distrito.length>0" >
+                            <div class="d-inline-flex" *ngFor="let m of item.distrito" >{{setDistrito(m)}}-</div><i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="col-12 margin_p text-right" *ngIf="item.distrito.length===0" >
+                            <div class="d-inline-flex">Selección por Área     <i class="fas fa-map-marker-alt"></i></div>
+                        </div>
+
+                        <div class="col-12 margin_p"  >
+                          <div class="row" style="margin:0px">
+                            <div class="col-6 " style="padding-left: 0px;padding-right: 5px">
+                              <div class="border_s">
+                                  <i class="fas fa-home"></i><span class="text-right" >{{item.tipo_departamento}}</span>
+                            </div>
+                          </div>
+                            <div class="col-6 " style="padding-right: 0px;padding-left: 5px">
+                              <div *ngIf="item.cuartos==1">
+                                  <div class="border_s">
+                                      <i class="fas fa-bed"></i><span class="text-right" >{{item.cuartos}} DORMITORIO A+</span>
+                                    </div>
+                              </div>
+                              <div *ngIf="item.cuartos>1">
+                                  <div class="border_s">
+                                      <i class="fas fa-bed"></i><span class="text-right" >{{item.cuartos}} DORMITORIOS A+</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                          </div>
+                        </div >
+                        <br>
+
+                        <div class="col-12 margin_p_10"  >
+                            <div class="row" style="margin:0px">
+
+                              <div class="col-lg-3 col-md-3 col-6 pl" >
+                                <div class="border_s"><i class="fab fa-medium"></i><span class="text-right" >{{item.area}} M² A+</span>
+                                </div>
+                              </div>
+
+                              <div class="col-lg-4 col-md-4 col-6 plr">
+                                <div *ngIf="item.bano==1">
+                                <div class="border_s"><i class="fas fa-toilet"></i><span class="text-right" >{{item.bano}} BAÑO A+</span>
+                                </div>
+                              </div>
+                              <div *ngIf="item.bano>1">
+                                  <div class="border_s"><i class="fas fa-toilet"></i><span class="text-right" >{{item.bano}} BAÑOS A+</span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col-lg-5 col-md-5 col-sm-12 pr" >
+                                <div class="border_s"><i class="fas fa-dollar-sign"></i><span class="text-right" >{{item.presupuesto.precio  | currency:" "}} {{item.presupuesto.moneda}}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+<div class="col-lg-2"></div>
+</div>
+
+</div>
+
+

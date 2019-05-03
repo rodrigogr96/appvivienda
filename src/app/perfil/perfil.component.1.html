@@ -1,0 +1,637 @@
+<div class="container datos_perfil">
+
+    <div class="row">
+
+        <div class="col-lg-4 text-center">
+
+
+            <div class="con">
+                <img src="{{photo_profile}}" alt="Cinque Terre" class="img_hover_file">
+                <div class="overlay" (click)="fileInput.click()">
+                    <a  class="icon" >
+                      <i>Actualizar Imagen</i>
+                    </a>
+                </div>
+
+              </div>
+
+            <div class="nombre_perfil">
+                <p class="text-uppercase">{{name_profile}}</p>
+            </div>
+            <p  *ngIf="_message_img"  class="text-center " style="padding: 5px;color: green;font-size: 1em">
+                {{message_text_img}}
+            </p>
+            <input type="file"  #fileInput (change)="detectFiles($event)" hidden accept="image/jpeg,image/png" >
+            <button  class="btn btn ds" [disabled]="!selectedFiles" (click)="uploadSingle()">SUBIR FOTO</button>
+
+
+
+
+
+            <div class="nav flex-column nav-pills text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="margin-bottom: 10px;"><br>
+               <a class="nav-link active " id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fas fa-align-justify"></i>MIS DATOS</a>
+                <a *ngIf="!typeUser" class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i class="far fa-user"></i>MI CONTRASEÑA</a>
+                <a   class="nav-link  " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"><i class="fab fa-telegram-plane"  ></i>MIS SOLICITUDES</a>
+                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><i class="fas fa-home"></i>MIS INMUEBLES</a>
+            </div>
+
+
+
+        </div>
+        <div class="col-lg-8">
+
+            <div class="tab-content perfil_tab" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                    <h3>MIS DATOS</h3>
+                    <div class="linea"></div>
+
+                    <form  #formPerfil="ngForm" (submit)="onUpdatePerfilUser()">
+                        <div class="form-group row">
+
+                            <label for="nombre_p" class="col-sm-3 col-form-label ">Nombres:</label>
+                            <div class="col-sm-7">
+
+                                <input
+                                type="text"
+                                #nameProfile_="ngModel"
+                                [(ngModel)]="modelProfile.nameProfile"
+                                name="nameProfile"
+                                class="form-control input_login"
+                                placeholder="Nombre"
+                                minlength="4"
+                                pattern="[a-zA-Z ]*"
+                                required
+                                (keypress)="onlyText($event)">
+
+                            <div *ngIf="nameProfile_.invalid && (nameProfile_.dirty || nameProfile_.touched)" class="validif">
+
+                                        <div *ngIf="nameProfile_.errors.required">
+                                          Nombre es requerido*
+                                        </div>
+                                        <div *ngIf="nameProfile_.errors.minlength">
+                                          Nombre debe ser mayor a 4 digitos*
+                                        </div>
+                                        <div *ngIf="nameProfile_.errors.pattern">
+                                          Nombre debe contener solo letras*
+                                        </div>
+
+                            </div>
+
+                          </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row">
+
+                          <label for="nombre_p" class="col-sm-3 col-form-label ">Apellidos:</label>
+                          <div class="col-sm-7">
+
+                              <input
+                              type="text"
+                              #apellidoProfile_="ngModel"
+                              [(ngModel)]="modelProfile.apellidoProfile"
+                              name="apellidoProfile"
+                              class="form-control input_login"
+                              placeholder="Apellido"
+                              minlength="4"
+                              pattern="[a-zA-Z ]*"
+                              required
+                              (keypress)="onlyText($event)">
+
+                          <div *ngIf="apellidoProfile_.invalid && (apellidoProfile_.dirty || apellidoProfile_.touched)" class="validif">
+
+                                      <div *ngIf="apellidoProfile_.errors.required">
+                                        Apellido es requerido*
+                                      </div>
+                                      <div *ngIf="apellidoProfile_.errors.minlength">
+                                        Apellido debe ser mayor a 4 digitos*
+                                      </div>
+                                      <div *ngIf="apellidoProfile_.errors.pattern">
+                                        Apellido debe contener solo letras*
+                                      </div>
+
+                          </div>
+
+                        </div>
+
+
+
+                      </div>
+
+
+                        <div class="form-group row">
+                            <label for="email_p" class="col-sm-3 col-form-label ">E-mail:  </label>
+                            <div class="col-sm-7">
+                                <input
+                                type="email"
+                                disabled
+                                class="form-control input_login"
+                                name="email"
+                                [(ngModel)]="modelProfile.email"
+                                placeholder="E-mail"
+                                required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="celular_p" class="col-sm-3 col-form-label ">Teléfono:  </label>
+                            <div class="col-sm-7">
+
+                                <input
+                                 type="text"
+                                 class="form-control input_login"
+                                 name="phoneNumber"
+                                 [(ngModel)]="modelProfile.phoneNumber"
+                                 #phoneNumber_="ngModel"
+                                 pattern="[0-9]*"
+                                 placeholder="Teléfono"
+                                 minlength="9"
+                                 maxlength="9"
+                                 required
+                                 (keypress)="onlyNumber($event)">
+
+                            <div *ngIf="phoneNumber_.invalid && (phoneNumber_.dirty || phoneNumber_.touched)" class="validif">
+
+                               <div *ngIf="phoneNumber_.errors.minlength || phoneNumber_.errors.maxlength">
+                                 Telefono debe contener 9 digitos*
+                               </div>
+                               <div *ngIf="phoneNumber_.errors.pattern">
+                                Telefono debe contener solo numeros*
+                               </div>
+                               <div *ngIf="phoneNumber_.errors.required">
+                                  Telefono es requerido*
+                               </div>
+
+                             </div>
+
+                          </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn bg-blul" [disabled] = "!formPerfil.valid">Guardar</button>
+                        </div>
+
+                    </form>
+
+                    <p  *ngIf="_message_perfil"  class="text-center " style="padding: 5px;background-color: green;color: white;font-size: 1em">
+                      {{message_text_perfil}}
+                   </p>
+
+
+
+                </div>
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <h3>MI CONTRASEÑA</h3>
+                    <div class="linea"></div>
+
+                    <form #formPerfilContrasena="ngForm" (submit)="onUpdatePassword(formPerfilContrasena)" [mustMatch]="['passwordNew', 'passwordConfirm']" >
+                        <div class="form-group row">
+
+                            <label for="password" class="col-sm-4 col-form-label ">Contraseña actual:</label>
+                            <div class="col-sm-6">
+
+                                <input
+                                type="email"
+                                disabled
+                                class="form-control input_login"
+                                name="email"
+                                [(ngModel)]="modelPassword.email"
+                                placeholder="E-mail"
+                                required
+                                hidden>
+
+                                <input
+                                type="password"
+                                class="form-control input_login"
+                                name="password"
+                                [(ngModel)]="modelPassword.password"
+                                #password_="ngModel"
+                                required appPassword>
+
+                                <div *ngIf="password_.invalid && (password_.dirty || password_.touched)"  class="validif">
+                                    <div *ngIf="password_.errors.required">Contraseña nueva es requerido*</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="passwordNew" class="col-sm-4 col-form-label ">Contraseña nueva:</label>
+                            <div class="col-sm-6">
+                                <input
+                                type="password"
+                                class="form-control input_login"
+                                name="passwordNew"
+                                #passwordNew_="ngModel"
+                                [(ngModel)]="modelPassword.passwordNew"
+                                required
+                                minlength="6" appPassword>
+
+                                <div *ngIf="passwordNew_.invalid && (passwordNew_.dirty || passwordNew_.touched)" class="validif">
+                                    <div *ngIf="passwordNew_.errors.required">Contraseña es requerido*</div>
+                                    <div *ngIf="passwordNew_.errors.minlength">Contraseña debe ser mayor a 6 digitos*</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="passwordConfirm" class="col-sm-4 col-form-label ">Confirmar contraseña:</label>
+                            <div class="col-sm-6">
+                                <input
+                                type="password"
+                                class="form-control input_login"
+                                name="passwordConfirm"
+                                #passwordConfirm_="ngModel"
+                                [(ngModel)]="modelPassword.passwordConfirm"
+                                required appPassword>
+
+                                <div *ngIf="passwordConfirm_.invalid && (passwordConfirm_.dirty || passwordConfirm_.touched)" class="validif" >
+                                    <div *ngIf="passwordConfirm_.errors.required">Confirmar contraseña nueva es requerido*</div>
+                                    <div *ngIf="passwordConfirm_.errors.mustMatch">Contraseñas no coinciden*</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="text-center">
+
+                            <button type="submit" class="btn bg-blul" [disabled] = "!formPerfilContrasena.valid" >Actualizar contraseña</button>
+                        </div>
+                    </form>
+
+
+
+                   <p *ngIf="message_c_valid" [ngClass]="{'mesage_valid':error.message === 'success','mesage_invalid':error.message === 'error'}"  class="text-center" >
+                      {{message_text_contra}}
+                   </p>
+
+
+
+                </div>
+
+
+
+                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    <h3>MIS SOLICITUDES</h3>
+                    <a class="btn nuevo_i" (click)="redireccionar('registro-solicitud')">NUEVA SOLICITUD</a>
+                    <div class="linea"></div>
+
+
+
+                    <div class="col-sm-12  " >
+
+                      <div *ngFor="let item of solicitudata | paginate: {id: 'solicitud', itemsPerPage: 2, currentPage: a }  ;let indice=index">
+                        <br><br>
+                        <div  class="col-12">
+                          <div class="botones_funcionales">
+
+                              <a (click)="editarSolicitud(item.id_solicitud)"  >Editar</a>
+                              <a (click)="eliminarSolicitud(item.id_solicitud,indice)" >Eliminar</a>
+                          </div>
+                        </div>
+                          <div class="item row showm">
+
+                              <div class="col-sm-4 padding" *ngIf="item.radio.length > 0" >
+                                  <agm-map   #map id="item.id_solicitud" class="mapag"   [scrollwheel]="false" [latitude]="setmapalat(item.radio[0])" [longitude]="setmapalon(item.radio[0])"[zoom]="12" >
+                                      <agm-circle *ngFor="let m of item.radio;let indice=index" [latitude]="setmapalat(m)" [longitude]="setmapalon(m)"
+                                     [radius]="700"
+                                     [fillColor]="colors[indice]">
+                                     </agm-circle>
+                                  </agm-map>
+                              </div>
+
+                              <div class="col-sm-4 padding" *ngIf="item.radio.length === 0">
+                                <agm-map   #map id="item.id_solicitud" class="mapag"    [scrollwheel]="false" [latitude]="-12.114090" [longitude]="-77.027842" [zoom]="13" >
+                                </agm-map>
+                            </div>
+
+
+
+                              <div class="col-sm-8  padding" (click)="viewSolicitud(item.id_solicitud)">
+                                  <div class="maps-renta row" style="margin:0px">
+
+                                          <div class="col-6 margin_p text-left " >
+                                              <div class="name-busca "><i class="fas fa-user"></i>ESTÁS BUSCANDO:</div>
+                                          </div>
+                                          <div class="col-6 margin_p text-right " >
+                                              <div *ngIf="item.operacion == 'VENTA'">
+
+                                                  <div class="estados">COMPRAR</div>
+                                              </div>
+                                              <div *ngIf="item.operacion == 'ALQUILER'">
+
+                                                  <div class="estados">ALQUILAR</div>
+                                              </div>
+                                              <div *ngIf="item.operacion == 'VACACIONAL'">
+
+                                                  <div class="estados">VACACIONAR</div>
+                                              </div>
+                                          </div>
+                                          <div class="col-12 margin_p text-right" *ngIf="item.distrito.length>0" >
+                                              <div class="d-inline-flex" *ngFor="let m of item.distrito" > {{setDistrito(m)}}-</div><i class="fas fa-map-marker-alt"></i>
+                                          </div>
+                                          <div class="col-12 margin_p text-right" *ngIf="item.distrito.length===0" >
+                                              <div class="d-inline-flex">Selección por Área     <i class="fas fa-map-marker-alt"></i></div>
+                                          </div>
+
+                                          <div class="col-12 margin_p"  >
+                                            <div class="row" style="margin:0px">
+                                              <div class="col-6 " style="padding-left: 0px;padding-right: 5px">
+                                                <div class="border_s">
+                                                    <i class="fas fa-home"></i><span class="text-right" >{{item.tipo_departamento}}</span>
+                                              </div>
+                                            </div>
+                                              <div class="col-6 " style="padding-right: 0px;padding-left: 5px">
+                                                  <div *ngIf="item.cuartos==1">
+                                                      <div class="border_s">
+                                                          <i class="fas fa-bed"></i><span class="text-right" >{{item.cuartos}} DORMITORIO A+</span>
+                                                        </div>
+                                                  </div>
+                                                  <div *ngIf="item.cuartos>1">
+                                                      <div class="border_s">
+                                                          <i class="fas fa-bed"></i><span class="text-right" >{{item.cuartos}} DORMITORIOS A+</span>
+                                                        </div>
+                                                    </div>
+                                              </div>
+                                            </div>
+                                          </div >
+                                          <br>
+                                          <div class="col-12 margin_p_10"  >
+                                              <div class="row" style="margin:0px">
+
+                                                  <div class="col-lg-3 col-md-3 col-6 pl" >
+                                                  <div class="border_s"><i class="fab fa-medium"></i><span class="text-right" >{{item.area}} M² A+</span>
+                                                  </div>
+                                                </div>
+
+                                                <div class="col-lg-4 col-md-4 col-6 plr">
+                                                    <div *ngIf="item.bano==1">
+                                                        <div class="border_s"><i class="fas fa-toilet"></i><span class="text-right" >{{item.bano}} BAÑO A+</span>
+                                                        </div>
+                                                      </div>
+                                                      <div *ngIf="item.bano>1">
+                                                          <div class="border_s"><i class="fas fa-toilet"></i><span class="text-right" >{{item.bano}} BAÑOS A+</span>
+                                                          </div>
+                                                        </div>
+                                                </div>
+
+                                                <div class="col-lg-5 col-md-5 col-sm-12 pr" >
+                                                  <div class="border_s"><i class="fas fa-dollar-sign"></i><span class="text-right" >{{item.presupuesto.precio  | currency:" "}} {{item.presupuesto.moneda}}</span>
+                                                  </div>
+                                                </div>
+
+                                              </div>
+                                            </div>
+
+
+
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="flecha_v" [ngClass]="item.match.length > 0 ? 'border-co1' : 'border-co2'">
+
+                          </div>
+
+                          <div  *ngIf="item.match.length > 0" class="mostrar_inmuebles"  >
+                          <div >
+                          <div *ngFor="let match of item.match;let indice=index" >
+
+                              <div class="itemss row " style="margin-top:10px ; margin-bottom: 10px; background-color: #e9ecef"  (click)="viewInmueble(inmuebles_match[indice].id_inmueble)"  >
+
+                                  <div class="col-sm-4 padding"  >
+
+                                  <img [src]="inmuebles_match[indice].image[0]['url']" class="img-fluid foto_normal">
+
+                                  </div>
+                                  <div class="col-sm-8  padding" >
+                                      <div class="maps-renta row" style="margin:0px">
+
+                                              <div class="col-6 margin_p text-left " >
+                                                  <div class="name-busca "><i class="fas fa-user"></i> {{user[inmuebles_match[indice].id_user]}} LE OFRECE:</div>
+                                              </div>
+                                              <div class="col-6 margin_p text-right " >
+
+                                                  <div class="estados">{{ inmuebles_match[indice].operacion}}</div>
+                                              </div>
+                                              <div class="col-12 margin_p text-right">
+                                                  <div >{{setDistrito( inmuebles_match[indice].coddireccion)}} / {{setprovincia( inmuebles_match[indice].coddireccion)}} <i class="fas fa-map-marker-alt"></i></div>
+                                              </div>
+
+                                              <div class="col-12 margin_p"  >
+                                                <div class="row" style="margin:0px">
+                                                  <div class="col-6 " style="padding-left: 0px;padding-right: 5px">
+                                                    <div class="border_s">
+                                                        <i class="fas fa-home"></i><span class="text-right" >{{ inmuebles_match[indice].tipo_departamento}}</span>
+                                                  </div>
+                                                </div>
+                                                  <div class="col-6 " style="padding-right: 0px;padding-left: 5px">
+                                                    <div *ngIf="inmuebles_match[indice].cuartos==1">
+                                                      <div class="border_s">
+                                                          <i class="fas fa-bed"></i><span class="text-right" >{{ inmuebles_match[indice].cuartos}} DORMITORIO </span>
+                                                        </div>
+                                                  </div>
+                                                  <div *ngIf="inmuebles_match[indice].cuartos>1">
+                                                      <div class="border_s">
+                                                          <i class="fas fa-bed"></i><span class="text-right" >{{ inmuebles_match[indice].cuartos}} DORMITORIOS </span>
+                                                        </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div >
+                                              <br>
+                                              <div class="col-12 margin_p_10"  >
+                                                  <div class="row" style="margin:0px">
+
+                                                    <div class="col-lg-3 col-md-3 col-6 pl" >
+                                                      <div class="border_s"><i class="fab fa-medium"></i><span class="text-right" >{{ inmuebles_match[indice].area}} M²</span>
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="col-lg-4 col-md-4 col-6 plr">
+                                                      <div *ngIf="inmuebles_match[indice].bano==1">
+                                                        <div class="border_s"><i class="fas fa-toilet"></i><span class="text-right" >{{ inmuebles_match[indice].bano}} BAÑO </span>
+                                                        </div>
+                                                      </div>
+                                                      <div *ngIf="inmuebles_match[indice].bano>1">
+                                                          <div class="border_s"><i class="fas fa-toilet"></i><span class="text-right" >{{ inmuebles_match[indice].bano}} BAÑOS </span>
+                                                          </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-lg-5 col-md-5 col-sm-12 pr" >
+                                                      <div class="border_s"><i class="fas fa-dollar-sign"></i><span class="text-right" >{{inmuebles_match[indice].presupuesto.precio | currency:" "}} {{ inmuebles_match[indice].presupuesto.moneda}}</span>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+
+
+
+                                      </div>
+                                  </div>
+                              </div>
+
+                            </div>
+
+                          </div>
+
+
+
+
+                            </div>
+
+
+
+
+
+
+
+                      </div>
+ <br>
+                      <div class="col-12 text-center" >
+                        <pagination-controls
+                       (pageChange)="a = $event"
+                       previousLabel="<"
+                       nextLabel=">"
+                       id="solicitud"
+                       >
+                      </pagination-controls>
+                    </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                    <h3>MIS INMUEBLES</h3>
+                    <a class="btn nuevo_i" (click)="redireccionar('registro-inmueble')">NUEVO INMUEBLE</a>
+                    <div class="linea"></div>
+
+
+
+
+
+                    <div class="col-sm-12 " >
+
+                      <!-- <div *ngIf="_rentalPublications != null && _rentalPublications.length > 0" class="col-sm-12"> -->
+
+
+
+
+
+                        <div *ngFor="let items of data  | paginate: {id: 'inmueble', itemsPerPage: 2, currentPage: p } ">
+                        <br><br>
+                        <div  class="col-12">
+                          <div class="botones_funcionales">
+
+                              <a  (click)="editarInmueble(items.id_inmueble)">Editar</a>
+                              <a (click)="eliminarInmueble(items.id_inmueble)" >Eliminar</a>
+                          </div>
+                        </div>
+                          <div class="item row">
+
+                              <div class="col-sm-4 padding"  >
+
+                              <img [src]="items.image[0]['url']" class="img-fluid foto_normal">
+
+                              </div>
+                              <div class="col-sm-8  padding" (click)="viewInmueble(items.id_inmueble)">
+                                  <div class="maps-renta row" style="margin:0px">
+
+                                          <div class="col-6 margin_p text-left " >
+                                              <div class="name-busca "><i class="fas fa-user"></i> ESTAS OFRECIENDO:</div>
+                                          </div>
+                                          <div class="col-6 margin_p text-right " >
+
+                                              <div class="estados">{{items.operacion}}</div>
+                                          </div>
+                                          <div class="col-12 margin_p text-right">
+                                              <div >{{setDistrito(items.coddireccion)}} / {{setprovincia(items.coddireccion)}} <i class="fas fa-map-marker-alt"></i></div>
+                                          </div>
+
+                                          <div class="col-12 margin_p"  >
+                                            <div class="row" style="margin:0px">
+                                              <div class="col-6 " style="padding-left: 0px;padding-right: 5px">
+                                                <div class="border_s">
+                                                    <i class="fas fa-home"></i><span class="text-right" >{{items.tipo_departamento}}</span>
+                                              </div>
+                                            </div>
+                                              <div class="col-6 " style="padding-right: 0px;padding-left: 5px">
+                                                <div *ngIf="items.cuartos==1">
+                                                  <div class="border_s">
+                                                      <i class="fas fa-bed"></i><span class="text-right" >{{items.cuartos}} DORMITORIO </span>
+                                                    </div>
+                                              </div>
+                                              <div *ngIf="items.cuartos>1">
+                                                  <div class="border_s">
+                                                      <i class="fas fa-bed"></i><span class="text-right" >{{items.cuartos}} DORMITORIOS </span>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div >
+                                          <br>
+                                          <div class="col-12 margin_p_10"  >
+                                              <div class="row" style="margin:0px">
+
+                                                <div class="col-lg-3 col-md-3 col-6 pl" >
+                                                  <div class="border_s"><i class="fab fa-medium"></i><span class="text-right" >{{items.area}} M²</span>
+                                                  </div>
+                                                </div>
+
+                                                <div class="col-lg-4 col-md-4 col-6 plr">
+                                                  <div *ngIf="items.bano==1">
+                                                    <div class="border_s"><i class="fas fa-toilet"></i><span class="text-right" >{{items.bano}} BAÑO </span>
+                                                    </div>
+                                                  </div>
+                                                  <div *ngIf="items.bano>1">
+                                                      <div class="border_s"><i class="fas fa-toilet"></i><span class="text-right" >{{items.bano}} BAÑOS </span>
+                                                      </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-lg-5 col-md-5 col-sm-12 pr" >
+                                                  <div class="border_s"><i class="fas fa-dollar-sign"></i><span class="text-right" >{{items.presupuesto.precio | currency:" "}} {{items.presupuesto.moneda}}</span>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+
+
+
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+
+                      <br>
+
+                      <div class="col-12 text-center" >
+                        <pagination-controls
+                       (pageChange)="p = $event"
+                       previousLabel="<"
+                       nextLabel=">"
+                       id="inmueble"
+                       >
+                      </pagination-controls>
+                    </div>
+
+
+                  </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>

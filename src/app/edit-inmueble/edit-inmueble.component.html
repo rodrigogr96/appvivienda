@@ -1,0 +1,672 @@
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+      <div class="carousel-item active">
+          <img src="assets/img/bg_solicitud.png" class="d-block w-100 imgslide">
+      </div>
+  </div>
+</div>
+
+<div class="text-publica ">
+  <div class="container">
+
+  <span><a routerLink="/perfil">Perfil</a> / <a >Editar Inmueble</a> </span>
+
+  <h4 class="register_in_h4">Editar Inmueble</h4>
+</div>
+</div>
+
+<div class="container registre" >
+  <form class="row" #FormEditSolicitud="ngForm" (submit)="registerInmueble(FormEditSolicitud)" autocomplete="of">
+
+       <div class="col-lg-6">
+
+           <div class="form-group row ">
+              <label  class="col-2 label_text ">Tipo :</label>
+             <div class="col-10">
+
+
+               <div class="btn-group style_toggle " data-toggle="buttons"  style="width: 100%" >
+                  <label  class="btn btn-primary active" (click)="changeExit('DEPARTAMENTO')" >
+                    <input
+                    type="radio"
+                    name="type_apar"
+                    [(ngModel)]="register.type_apar"
+                    value="DEPARTAMENTO">DEPARTAMENTO
+                  </label>
+                  <label  class="btn btn-primary" (click)="changeExit('CASA')" >
+                    <input
+                    type="radio"
+                    name="type_apar"
+                    [(ngModel)]="register.type_apar"
+                    value="CASA">CASA
+                  </label>
+                  <label  class="btn btn-primary" (click)="changeExit('OFICINA')">
+                    <input
+                    type="radio"
+                    name="type_apar"
+                    [(ngModel)]="register.type_apar"
+                    value="OFICINA">OFICINA
+                  </label>
+                  <label  class="btn btn-primary" (click)="changeExit('TERRENO')">
+                    <input
+                    type="radio"
+                    name="type_apar"
+                    [(ngModel)]="register.type_apar"
+                    value="TERRENO">TERRENO
+                  </label>
+                <label style="color:red ;margin-top: 8px;font-weight: bold;margin-left: 2px" >*</label>
+                </div>
+              </div>
+           </div>
+
+           <div class="form-group row ">
+              <label  class="col-2 label_text ">Operación :</label>
+             <div class="col-10">
+              <div class="btn-group style_toggle" data-toggle="buttons" style="width: 100%">
+                  <label class="btn btn-primary active" (click)="register.operation = 'ALQUILER'">
+                    <input
+                    type="radio"
+                    name="operation"
+                    value="ALQUILER"
+                    [(ngModel)]="register.operation">ALQUILER
+                  </label>
+                  <label class="btn btn-primary" (click)="register.operation = 'VENTA'">
+                    <input
+                    type="radio"
+                    name="operation"
+                    value="VENTA"
+                    [(ngModel)]="register.operation">VENTA
+                  </label>
+                  <label *ngIf="isvacacional" class="btn btn-primary" (click)="register.operation = 'VACACIONAL'">
+                    <input
+                    type="radio"
+                    name="operation"
+                    value="VACACIONAL"
+                    [(ngModel)]="register.operation">VACACIONAL
+                  </label>
+                <label style="color:red ;margin-top: 8px;font-weight: bold;margin-left: 2px" >*</label>
+                </div>
+              </div>
+           </div>
+
+           <div class="form-group row ">
+              <label  class="col-2 label_text ">Dormitorios :</label>
+             <div class="col-10">
+              <div class="btn-group style_toggle" data-toggle="buttons" style="width: 70%">
+                  <label class="btn btn-primary active" (click)="register.door = 1">
+                    <input type="radio" name="door" value="1" [(ngModel)]="register.door" >1
+                  </label>
+                  <label class="btn btn-primary" (click)="register.door = 2">
+                    <input type="radio" name="door" value="2" [(ngModel)]="register.door" >2
+                  </label>
+                  <label class="btn btn-primary" (click)="register.door = 3">
+                    <input type="radio" name="door" value="3" [(ngModel)]="register.door" >3
+                  </label>
+                  <label class="btn btn-primary" (click)="register.door = 4">
+                      <input type="radio" name="door" value="4" [(ngModel)]="register.door" >4
+                    </label>
+                    <label class="btn btn-primary" (click)="register.door = 5">
+                        <input type="radio" name="door" value="5" [(ngModel)]="register.door">5+
+                      </label>
+                <label style="color:red ;margin-top: 8px;font-weight: bold;margin-left: 2px" >*</label>
+                </div>
+              </div>
+           </div>
+
+           <div class="form-group row ">
+              <label  class="col-2 label_text ">Baños :</label>
+             <div class="col-10">
+              <div class="btn-group style_toggle" data-toggle="buttons" style="width: 70%">
+                  <label class="btn btn-primary active" (click)="register.bano = 1">
+                    <input type="radio" name="bano" value="1" checked [(ngModel)]="register.bano">1
+                  </label>
+                  <label class="btn btn-primary" (click)="register.bano = 2">
+                    <input type="radio" name="bano" value="2" [(ngModel)]="register.bano">2
+                  </label>
+                  <label class="btn btn-primary" (click)="register.bano = 3">
+                    <input type="radio" name="bano" value="3" [(ngModel)]="register.bano" >3
+                  </label>
+                  <label class="btn btn-primary" (click)="register.bano = 4">
+                      <input type="radio" name="bano" value="4" [(ngModel)]="register.bano" >4
+                    </label>
+                    <label class="btn btn-primary" (click)="register.bano = 5">
+                        <input type="radio" name="bano" value="5" [(ngModel)]="register.bano" >5+
+                      </label>
+                <label style="color:red ;margin-top: 8px;font-weight: bold;margin-left: 2px" >*</label>
+                </div>
+              </div>
+           </div>
+
+           <div class="form-group row ">
+              <label  class="col-2 label_text ">Cocheras :</label>
+             <div class="col-10">
+              <div class="btn-group style_toggle" data-toggle="buttons" style="width: 70%">
+                  <label class="btn btn-primary active" (click)="register.cochera = 'NO'">
+                    <input type="radio" name="cochera" checked value="NO" [(ngModel)]="register.cochera">NO
+                  </label>
+                  <label class="btn btn-primary" (click)="register.cochera = 1">
+                    <input type="radio" name="cochera" value="1" [(ngModel)]="register.cochera">1
+                  </label>
+                  <label class="btn btn-primary" (click)="register.cochera = 2">
+                    <input type="radio" name="cochera" value="2" [(ngModel)]="register.cochera">2
+                  </label>
+                  <label class="btn btn-primary" (click)="register.cochera = 3">
+                      <input type="radio" name="cochera" value="3" [(ngModel)]="register.cochera">3
+                    </label>
+                    <label class="btn btn-primary" (click)="register.cochera = 4">
+                        <input type="radio" name="cochera" value="4" [(ngModel)]="register.cochera">4+
+                      </label>
+                <label style="color:red ;margin-top: 8px;font-weight: bold;margin-left: 2px" >*</label>
+                </div>
+              </div>
+           </div>
+
+           <div class="form-group row">
+              <label  class="col-2 label_text ">Vista :</label>
+             <div class="col-10">
+              <div class="btn-group style_toggle" data-toggle="buttons" style="width: 50%">
+                  <label class="btn btn-primary active" (click)="register.vista = 'INTERNA'">
+                    <input type="radio" name="vista" checked value="INTERNA" [(ngModel)]="register.vista">INTERNA
+                  </label>
+                  <label class="btn btn-primary" (click)="register.vista = 'EXTERNA'">
+                    <input type="radio" name="vista" value="EXTERNA" [(ngModel)]="register.vista" >EXTERNA
+                  </label>
+
+                <label style="color:red ;margin-top: 8px;font-weight: bold;margin-left: 2px" >*</label>
+                </div>
+              </div>
+           </div>
+
+           <div class="form-group row">
+              <label  class="col-2 label_text ">Tipo :</label>
+             <div class="col-10">
+              <div class="btn-group style_toggle" data-toggle="buttons"  style="width: 50%">
+                  <label class="btn btn-primary active" (click)="register.tipo = 'FLAT'">
+                    <input type="radio" name="tipo" checked value="FLAT" [(ngModel)]="register.tipo">FLAT
+                  </label>
+                  <label class="btn btn-primary" (click)="register.tipo = 'DUPLEX'">
+                    <input type="radio" name="tipo" value="DUPLEX" [(ngModel)]="register.tipo">DUPLEX
+                  </label>
+
+                <label style="color:red ;margin-top: 8px;font-weight: bold;margin-left: 2px" >*</label>
+                </div>
+              </div>
+           </div>
+
+           <div class="form-group row">
+              <label  class="col-2 label_text ">Amoblado :</label>
+             <div class="col-10">
+              <div class="btn-group style_toggle" data-toggle="buttons"  style="width: 50%">
+                  <label class="btn btn-primary active" (click)="register.amoblado = 'FULL'">
+                    <input type="radio" name="amoblado" checked value="FULL" [(ngModel)]="register.amoblado">FULL
+                  </label>
+                  <label class="btn btn-primary" (click)="register.amoblado = 'SEMI'">
+                    <input type="radio" name="amoblado" value="SEMI" [(ngModel)]="register.amoblado">SEMI
+                  </label>
+                  <label class="btn btn-primary" (click)="register.amoblado = 'SIN'">
+                      <input type="radio" name="amoblado" value="SIN" [(ngModel)]="register.amoblado">SIN
+                    </label>
+
+                <label style="color:red ;margin-top: 8px;font-weight: bold;margin-left: 2px" >*</label>
+                </div>
+              </div>
+           </div>
+
+           <div class="form-group row">
+              <label  class="col-2 label_text ">Estreno :</label>
+             <div class="col-10">
+              <div class="btn-group style_toggle" data-toggle="buttons"  style="width: 30%">
+                  <label class="btn btn-primary active" (click)="register.estreno = 'SI'">
+                    <input type="radio" name="estreno" checked value="SI" [(ngModel)]="register.estreno">SI
+                  </label>
+                  <label class="btn btn-primary" (click)="register.estreno = 'NO'">
+                    <input type="radio" name="estreno" value="NO" [(ngModel)]="register.estreno">NO
+                  </label>
+
+                <label style="color:red ;margin-top: 8px;font-weight: bold;margin-left: 2px" >*</label>
+                </div>
+              </div>
+           </div>
+
+           <div class="form-group row">
+              <label  class="col-2 label_text ">Proyecto :</label>
+             <div class="col-10">
+              <div class="btn-group style_toggle" data-toggle="buttons"  style="width: 30%">
+                  <label class="btn btn-primary active" (click)="register.proyecto = 'SI'">
+                    <input type="radio" name="proyecto" checked value="SI" [(ngModel)]="register.proyecto">SI
+                  </label>
+                  <label class="btn btn-primary" (click)="register.proyecto = 'NO'">
+                    <input type="radio" name="proyecto" value="NO" [(ngModel)]="register.proyecto">NO
+                  </label>
+
+                <label style="color:red ;margin-top: 8px;font-weight: bold;margin-left: 2px" >*</label>
+                </div>
+              </div>
+           </div>
+
+           <div class="form-group row">
+              <label  class="col-2 label_text ">Área :</label>
+             <div class="col-10">
+               <input type="text"
+               class="form-control input_login sm-2"
+               name="area"
+               #area_="ngModel"
+               [(ngModel)]="register.area"
+               placeholder="Inmueble"
+               pattern="[0-9.]*"
+               required
+               (keypress)="onlyNumber($event)" >
+               <label style="color:rgb(24, 52, 207) !important; margin-left: 2px">m2</label><label style="color:red ;margin-top: 8px;font-weight: bold;margin-left: 2px" >*</label>
+
+
+               <div *ngIf="area_.invalid && (area_.dirty )" class="validif" >
+                <div *ngIf="area_.errors.required">Área del inmueble es requerido*</div>
+                <div *ngIf="area_.errors.pattern">
+                    Área del inmueble debe contener solo numeros*
+                 </div>
+            </div>
+
+              </div>
+           </div>
+
+           <div class="form-group row">
+              <label  class="col-2 label_text ">Precio :</label>
+             <div class="col-10">
+                <select name="type_p"
+                 class="form-control input_login sm-1"
+                 name="pre_type"
+                [(ngModel)]="register.pre_type">
+
+                    <option value="SOLES" selected>S/.</option>
+                    <option value="DOLARES">$USD</option>
+
+                </select>
+               <input
+               type="text"
+               class="form-control input_login sm"
+               name="pre_price"
+               #price_pre="ngModel"
+               [(ngModel)]="register.pre_price"
+               pattern="[0-9.]*"
+               required
+               (keypress)="onlyNumber($event)"> <label style="color:red ;margin-top: 8px;font-weight: bold;margin-left: 2px" >*</label>
+
+               <div *ngIf="price_pre.invalid && (price_pre.dirty)" class="validif" >
+                <div *ngIf="price_pre.errors.required">Precio es requerido*</div>
+                <div *ngIf="price_pre.errors.pattern">
+                  Precio debe contener solo numeros*
+                 </div>
+            </div>
+
+              </div>
+           </div>
+
+
+           <div class="form-group row">
+              <label  class="col-2 label_text ">Mantenimiento :</label>
+             <div class="col-10">
+                <select
+                name="man_type"
+                [(ngModel)]="register.man_type"
+                class="form-control input_login sm-1 ">
+                    <option value="SOLES" selected>S/.</option>
+                    <option value="DOLARES">$USD</option>
+                </select>
+
+               <input type="text"
+               class="form-control input_login sm"
+               name="man_price"
+               #price_man="ngModel"
+               [(ngModel)]="register.man_price"
+               pattern="[0-9.]*"
+               required
+               (keypress)="onlyNumber($event)" >
+
+                <label style="color:red ;margin-top: 8px;font-weight: bold;margin-left: 2px" >*</label>
+
+                <div *ngIf="price_man.invalid && (price_man.dirty)" class="validif" >
+                  <div *ngIf="price_man.errors.required">Mantenimiento es requerido*</div>
+                  <div *ngIf="price_man.errors.pattern">
+                    Mantenimiento debe contener solo numeros*
+                   </div>
+              </div>
+
+
+              </div>
+           </div>
+
+
+
+       </div>
+
+
+
+
+
+     <div class="col-lg-6 " >
+
+       <div class="form-group row" style="margin-left: 0px;margin-right: 0px;">
+
+        <label  class="col-2 label_text">Departamento :</label>
+        <div class="col-10">
+
+          <select
+              name="departamento"
+              [(ngModel)]="register.departamento"
+              class="form-control input_login sm-4"
+              style="display: inline-block"
+              (change)="selDepart();"
+              id="department"
+              #departamento_="ngModel"
+              required>
+              <option *ngFor="let kdpt of keyDeparts" [selected]="kdpt === departSeleccionado"  [attr.value]="kdpt">{{objDepart[kdpt].name}}</option>
+
+          </select>
+          <div *ngIf="departamento_.invalid && (departamento_.dirty)" class="validif" >
+            <div *ngIf="departamento_.errors.required">Departamento es requerido*</div>
+        </div>
+
+
+
+      </div>
+      <label  class="col-2 label_text" style="margin-top: 8px">Provincia :</label>
+           <div class=" col-10" style="margin-top: 8px">
+
+               <select
+                   name="provincia"
+                   [(ngModel)]="register.provincia"
+                   class="form-control input_login sm-4 "
+                   style="display: inline-block;"
+                   id="city"
+                   (change)="selCity();"
+                   #provincia_="ngModel"
+                   required>
+                   <option *ngFor="let prov of showProvs;" [selected]="prov.sku === proviSeleccionado" value="{{prov.sku}}">{{prov.name}}</option>
+               </select>
+
+               <div *ngIf="provincia_.invalid && (provincia_.dirty)" class="validif" >
+                <div *ngIf="provincia_.errors.required">Provincia es requerido*</div>
+            </div>
+            <br>
+           </div>
+
+
+           <label  class="col-2 label_text " style="margin-top: 8px">Distrito :</label>
+           <div class="col-10" style="margin-top: 8px">
+
+              <select
+                  name="distrito"
+                  [(ngModel)]="register.distrito"
+                  class="form-control input_login sm-4 "
+                  style="display: inline-block;"
+                  id="district"
+                  (change)="selDistrict();"
+                  #distrito_="ngModel"
+                  required>
+                  <option *ngFor="let distrito of showDists;" [selected]="distrito.sku === districSeleccionado" value="{{distrito.sku}}">{{distrito.name}}</option>
+
+              </select>
+
+              <div *ngIf="distrito_.invalid && (distrito_.dirty)" class="validif" >
+                <div *ngIf="distrito_.errors.required">Distrito es requerido*</div>
+            </div>
+
+           </div>
+
+           <label style="color:red ;position: absolute;right: 15px;font-weight: bold;margin-top: 8px" >*</label>
+           <label style="color:red ;position: absolute;right: 15px;font-weight: bold;margin-top: 50px" >*</label>
+           <label style="color:red ;position: absolute;right: 15px;font-weight: bold;margin-top: 105px" >*</label>
+       </div>
+
+       <div class="form-group row " style="margin-left: 0px;margin-right: 0px; margin-top: 7px">
+
+          <label  class="col-2 label_text">Direccion :</label>
+
+         <div class="col-10">
+           <input type="text"
+           class="form-control input_login sm-4"
+           name="direccion"
+           #direccion_="ngModel"
+           [(ngModel)]="register.direccion"
+           placeholder="Enter direccion"
+           required
+           id="direccion"
+           pattern="[a-zA-Z 0-9.-]*"
+           (keypress)="onlyDireccion($event)"
+           #search
+           autocomplete="off"
+
+           >
+
+           <div *ngIf="direccion_.invalid && (direccion_.dirty)" class="validif" >
+            <div *ngIf="direccion_.errors.required">Direccion es requerido*</div>
+            <div *ngIf="direccion_.errors.pattern">
+              Caracteres extraños*
+             </div>
+        </div>
+
+          </div>
+
+
+
+          <label style="color:red ;position: absolute;right: 15px;font-weight: bold;margin-top: 8px" >*</label>
+
+
+
+       </div>
+
+       <div class="form-group " style="margin-top: 20px">
+          <div class="col-12" style="padding:0px">
+
+              <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                  <agm-marker [latitude]="latitude_m"  [longitude]="longitude_m" ></agm-marker>
+                </agm-map>
+        </div>
+       </div>
+
+       <div class="form-group  " style="margin-top: 20px">
+
+        <div class="col-12"style="padding:0px" >
+          <label style="color:red ;position: absolute;right: -10px;font-weight: bold; top:10px" >*</label>
+          <div class="btn-group style_toggle "   style="width: 100%" >
+              <label  class="btn btn-primary  margin0 border-b chb"  >
+                  <i style="font-size: 40px" class="fas fa-pallet"></i> <br>
+                <input
+                type="checkbox"
+                name="terraza"
+                [(ngModel)]="register.terraza">BALCÓN Ó TERRAZA
+              </label>
+              <label  class="btn btn-primary margin0 border-b border-r chb" >
+
+                  <i style="font-size: 40px" class="fas fa-paw"></i><br>
+                <input
+                type="checkbox"
+                name="mascota"
+                [(ngModel)]="register.mascota">MASCOTAS
+              </label>
+              <label  class="btn btn-primary margin0 border-b  chb" >
+                  <i style="font-size: 40px" class="fas fa-dolly"></i><br>
+                <input
+                type="checkbox"
+                name="deposito"
+                [(ngModel)]="register.deposito">DEPÓSITO
+              </label>
+              <label  class="btn btn-primary margin0 border-b chb" >
+                  <i style="font-size: 40px" class="fas fa-grip-vertical"></i><br>
+                <input
+                type="checkbox"
+                name="ascensor"
+                [(ngModel)]="register.ascensor">ASCENSOR
+              </label>
+            </div>
+            <div class="btn-group style_toggle "   style="width: 100%;margin:0px ;border-bottom: 0px"  >
+                <label  class="btn btn-primary  margin0 border-b chb" >
+                    <i style="font-size: 40px" class="fas fa-eye"></i> <br>
+                  <input
+                  type="checkbox"
+                  name="vigilancia"
+                  [(ngModel)]="register.vigilancia">VIGILANCIA
+                </label>
+                <label  class="btn btn-primary margin0 border-b border-r chb" >
+
+                    <i style="font-size: 40px" class="fas fa-door-closed"></i><br>
+                  <input
+                  type="checkbox"
+                  name="servicio"
+                  [(ngModel)]="register.servicio">CUARTO DE SERVICIO
+                </label>
+                <label  class="btn btn-primary margin0 border-b chb" >
+                    <i  style="font-size: 40px" class="fas fa-wheelchair"></i> <br>
+                  <input
+                  type="checkbox"
+                  name="dscp"
+                  [(ngModel)]="register.dscp">ACCESO DSCSDOS
+                </label>
+                <label  class="btn btn-primary margin0 border-b chb" >
+                    <i style="font-size: 40px" class="fas fa-wine-glass-alt"></i> <br>
+                  <input
+                  type="checkbox"
+                  name="reunion"
+                  [(ngModel)]="register.reunion">SALA DE REUNIÓN
+                </label>
+
+              </div>
+              <div class="btn-group style_toggle "      style="width: 100%"  >
+                  <label  class="btn btn-primary  margin0 chb" >
+                      <i style="font-size: 40px" class="fas fa-swimmer"></i><br>
+                    <input
+                    type="checkbox"
+                    name="piscina"
+                    [(ngModel)]="register.piscina">PISCINA
+                  </label>
+                  <label  class="btn btn-primary margin0 border-r chb" >
+
+                      <i style="font-size: 40px" class="fas fa-dumbbell"></i> <br>
+                    <input
+                    type="checkbox"
+                    name="gym"
+                    [(ngModel)]="register.gym">GIMNASIO
+                  </label>
+                  <label  class="btn btn-primary margin0 chb" >
+                      <i style="font-size: 40px" class="fas fa-utensils"></i> <br>
+                    <input
+                    type="checkbox"
+                    name="parrilla"
+                    [(ngModel)]="register.parrilla">PARRILLA
+                  </label>
+                  <label  class="btn btn-primary margin0 chb"   >
+                      <i style="font-size:40px" class="fas fa-volleyball-ball"></i><br>
+                    <input
+                    type="checkbox"
+                    name="juego"
+                    [(ngModel)]="register.juego">JUEGOS
+                  </label>
+                </div>
+
+          </div>
+
+       </div>
+
+
+
+     </div>
+
+     <div class="linea col-md-12"></div>
+
+     <div class="col-12 galeria_fotos" >
+       <div class="row"  style="margin: 0px;">
+
+      <div class="col-4"><h4>Galería de Fotos: <span>*</span></h4></div>
+      <div class="col-4 text-center" >
+
+          <input type="file" (change)="onSelectFile($event)" multiple  #fileInput  hidden accept="image/jpeg,image/png" >
+        <a  class="btn btn-m"   (click)="fileInput.click()">SUBIR FOTOS</a>
+
+      </div>
+      <div class="col-4"> <p>HASTA 10 FOTOS EN JPEG O PNG, PESO LÍMITE POR MEGAS</p></div>
+
+       </div>
+
+       <div class="row galeria_f"  style="margin: 0px;">
+         <div class="modi col" *ngFor='let url of urlsdb;let indice=index'>
+            <img  class="img-fluid"  [src]="url.url"  >
+            <div class="eliminarimg"  >
+
+            <span title="Eliminar" (click)="eliminarImagen(indice)">x</span>
+
+            </div>
+        </div>
+
+        <div class="modi col" *ngFor='let url of url;let indice=index'>
+          <img  class="img-fluid"  [src]="url"  >
+          <div class="eliminarimg"  >
+
+          <span title="Eliminar" (click)="eliminarImagen2(indice)">x</span>
+
+          </div>
+      </div>
+
+       </div>
+     </div>
+
+     <div class="alerta text-center col-12" >
+       <img src="assets/img/alerta.png" alt="">
+       <p>Es importante para nosotros que completes todos los campos.</p>
+     </div>
+
+
+
+
+
+     <div class=" col-12 justify-content-md-center wid"><br><br>
+      <div class="row justify-content-md-center">
+      <div class="fir_se">
+       <button type="submit" style=" width: 100px !important;font-size: 15px" class="btn bg-blul button_red" [disabled] = "!FormEditSolicitud.valid" >GUARDAR CAMBIOS</button>
+     </div>
+   </div>
+   </div>
+
+
+    </form>
+
+
+
+
+</div>
+
+
+<div style="clear: both"></div>
+
+
+<div class="modal fade modal-edit" id="modal_ok" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+          <div class="modal-body">
+              <div class="text-center"><br>
+                  <img src="assets/img/logoblue-png.png" alt="">
+                  <a class="btn_cerrar_modal" data-dismiss="modal">X</a>
+              </div>
+              <div class="text-center"><br> <h6>Editar</h6></div>
+              <div class="text-center"><i style="font-size: 50px;color: green" class="far fa-check-circle"></i></div>
+              <div class="text-center container"><br><p>Los datos se actualizaron correctamente.</p></div>
+               <div class="text-center container">
+                <a  style="color:white"  data-dismiss="modal" class="btn bg-blul_ingresar btn-block bg" >Cerrar</a><br>
+               </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+<ngx-spinner
+bdOpacity = 0.5
+bdColor = "rgba(0,0,0,0.9)"
+size = "large"
+color = "#ffffff"
+type = "ball-clip-rotate-multiple"
+fullScreen = "true"
+>
+<p style="font-size: 20px; color: white">Actualizando Inmueble</p>
+</ngx-spinner>

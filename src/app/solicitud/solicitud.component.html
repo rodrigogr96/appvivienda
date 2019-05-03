@@ -1,0 +1,570 @@
+<style>
+.ngb-dp-months {
+  display: block !important;
+}
+</style>
+
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+      <div class="carousel-item active">
+          <img src="assets/img/bg_solicitud.png" class="d-block w-100 imgslide">
+      </div>
+  </div>
+</div>
+
+<div class="text-publica ">
+  <div class="container">
+
+  <span><a routerLink="home">Home</a> / <a >Solicitudes</a></span>
+
+  <h4 class="register_in_h4">Solicitudes</h4>
+</div>
+</div>
+
+
+<div class="container mod_pub">
+  <div class="row" style="margin :0px">
+    <div class="col-lg-3 right_b"  >
+
+
+      <label  class="col-12 label_text ">Tipo :</label>
+<div class="btn-group style_toggle " data-toggle="buttons"  style="width: 100%;display: block" >
+        <label  class="btn btn-primary ac "   style="width: 50%;font-size: 11px;padding: .300rem .75rem;" (click)="changeExit('DEPARTAMENTO')"   >
+          <input
+          type="radio"
+          name="type_apar"
+          [(ngModel)]="register.type_apar"
+          value="DEPARTAMENTO">DEPARTAMENTO
+        </label>
+        <label  class="btn btn-primary ac" style="width: 50%;font-size: 11px;padding: .300rem .75rem;" (click)="changeExit('CASA')"   >
+          <input
+          type="radio"
+          name="type_apar"
+          [(ngModel)]="register.type_apar"
+          value="CASA">CASA
+        </label>
+        <label  class="btn btn-primary ac" style="width: 50%;font-size: 11px;padding: .300rem .75rem" (click)="changeExit('OFICINA')"   >
+          <input
+          type="radio"
+          name="type_apar"
+          [(ngModel)]="register.type_apar"
+          value="OFICINA">OFICINA
+        </label>
+        <label  class="btn btn-primary ac" style="width: 50%;font-size: 11px;padding: .300rem .75rem;" (click)="changeExit('TERRENO')"   >
+          <input
+          type="radio"
+          name="type_apar"
+          [(ngModel)]="register.type_apar"
+          value="TERRENO">TERRENO
+        </label>
+      </div>
+
+      <label  class="col-12 label_text ">Operación :</label>
+      <div class="btn-group style_toggle" data-toggle="buttons" style="width: 100%">
+          <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="changeVacacional('ALQUILER')" >
+            <input
+            type="radio"
+            name="operation"
+            value="ALQUILER"
+
+            [(ngModel)]="register.operation">ALQUILER
+          </label>
+          <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="changeVacacional('VENTA')" >
+            <input
+            type="radio"
+            name="operation"
+            value="VENTA"
+            [(ngModel)]="register.operation">VENTA
+          </label>
+          <label *ngIf="isvacacional" style="font-size: 11px;padding: .300rem .75rem"  class="btn btn-primary ac" (click)="changeVacacional('VACACIONAL')" >
+            <input
+            type="radio"
+            name="operation"
+            value="VACACIONAL"
+            [(ngModel)]="register.operation">VACACIONAL
+          </label>
+        </div>
+
+        <label  class="col-12 label_text ">Departamento :</label>
+        <select
+                    name="departamento"
+                    [(ngModel)]="register.departamento"
+                    class="form-control input_login sm-4 "
+                    style="display: inline-block"
+                    (change)="selDepart();"
+                    id="department"
+                    #departamento_="ngModel"  style="font-size: 11px;height: 30px !important"
+                    >
+                    <option *ngFor="let kdpt of keyDeparts" [selected]="kdpt === departSeleccionado"  [attr.value]="kdpt">{{objDepart[kdpt].name}}</option>
+
+                </select>
+
+                <label  class="col-12 label_text ">Provincia :</label>
+                <select
+                name="provincia"
+                [(ngModel)]="register.provincia"
+                class="form-control input_login sm-4"
+                style="display: inline-block;"
+                id="city"
+                (change)="selCity();"
+                #provincia_="ngModel"  style="font-size: 11px;height: 30px !important"
+                >
+                <option *ngFor="let prov of showProvs;" [selected]="prov.sku === proviSeleccionado" value="{{prov.sku}}">{{prov.name}}</option>
+            </select>
+
+            <label  class="col-12 label_text ">Distrito :</label>
+
+            <select
+                        name="distrito"
+                        [(ngModel)]="register.distrito"
+                        class="form-control input_login sm-4"
+                        style="display: inline-block;"
+                        id="district"
+                        (change)="selDistrict();"
+                        #distrito_="ngModel" style="font-size: 11px;height: 30px !important"
+                        >
+            <option *ngFor="let distrito of showDists;" [selected]="distrito.sku === districSeleccionado" value="{{distrito.sku}}">{{distrito.name}}</option>
+
+                    </select>
+
+                    <label  class="col-12 label_text " *ngIf="rangeDate" >Tiempo :</label>
+
+                    <div class="text-center" *ngIf="rangeDate" >
+                        <ngb-datepicker #dp id="dp" class="dp" (select)="onDateSelection($event)" [lang]="es" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
+                        </ngb-datepicker>
+                        <ng-template #t let-date let-focused="focused">
+                            <span class="custom-day"
+                                  [class.focused]="focused"
+                                  [class.range]="isRange(date)"
+                                  [class.faded]="isHovered(date) || isInside(date)"
+                                  (mouseenter)="hoveredDate = date"
+                                  (mouseleave)="hoveredDate = null">
+                              {{ date.day }}
+                            </span>
+                          </ng-template><br>
+                      </div>
+
+                      <label  class="col-12 label_text " >Dormitorios :</label>
+                      <div class="btn-group style_toggle" data-toggle="buttons" style="width:100%">
+                          <label class="btn btn-primary ac " style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['cuartos'] = 1">
+                            <input type="radio" name="door" value="1" [(ngModel)]="register.door" >1+
+                          </label>
+                          <label class="btn btn-primary ac"  style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['cuartos'] = 2">
+                            <input type="radio" name="door" value="2" [(ngModel)]="register.door" >2+
+                          </label>
+                          <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['cuartos'] = 3">
+                            <input type="radio" name="door" value="3" [(ngModel)]="register.door" >3+
+                          </label>
+                          <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['cuartos'] = 4">
+                              <input type="radio" name="door" value="4" [(ngModel)]="register.door" >4+
+                            </label>
+                            <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['cuartos'] = 5">
+                                <input type="radio" name="door" value="5" [(ngModel)]="register.door">5+
+                              </label>
+                        </div>
+                      <label  class="col-12 label_text " >Baños :</label>
+                      <div class="btn-group style_toggle" data-toggle="buttons" style="width: 100%">
+                          <label class="btn btn-primary  ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['bano'] = 1">
+                            <input type="radio" name="bano" value="1" checked [(ngModel)]="register.bano">1+
+                          </label>
+                          <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['bano'] = 2">
+                            <input type="radio" name="bano" value="2" [(ngModel)]="register.bano">2+
+                          </label>
+                          <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['bano'] = 3">
+                            <input type="radio" name="bano" value="3" [(ngModel)]="register.bano" >3+
+                          </label>
+                          <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['bano'] = 4">
+                              <input type="radio" name="bano" value="4" [(ngModel)]="register.bano" >4+
+                            </label>
+                            <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['bano'] = 5">
+                                <input type="radio" name="bano" value="5" [(ngModel)]="register.bano" >5+
+                              </label>
+                        </div>
+                      <label  class="col-12 label_text " >Cochera :</label>
+
+                      <div class="btn-group style_toggle" data-toggle="buttons" style="width:100%">
+                          <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['cochera'] = 'NO'">
+                            <input type="radio" name="cochera" checked value="NO" [(ngModel)]="register.cochera">NO
+                          </label>
+                          <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['cochera'] = 1">
+                            <input type="radio" name="cochera" value="1" [(ngModel)]="register.cochera">1+
+                          </label>
+                          <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['cochera'] = 2">
+                            <input type="radio" name="cochera" value="2" [(ngModel)]="register.cochera">2+
+                          </label>
+                          <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['cochera'] = 3">
+                              <input type="radio" name="cochera" value="3" [(ngModel)]="register.cochera">3+
+                            </label>
+                            <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['cochera'] = 4">
+                                <input type="radio" name="cochera" value="4" [(ngModel)]="register.cochera">4+
+                              </label>
+                        </div>
+                        <label  class="col-12 label_text " >Presupuesto :</label>
+
+                      <div class="row" style="margin: 0px !important">
+                          <div class="col-4" style="padding-left: 0px;margin: 0px">
+                            <select name="type_p"
+                            style="width: 100%"
+                     class="form-control input_login sm-1"
+                     name="pre_type"
+                     #type_pre="ngModel"
+                    [(ngModel)]="register.pre_type"
+                    required>
+
+                        <option value="SOLES" selected> S/.</option>
+                        <option value="DOLARES" >$USD</option>
+
+                    </select>
+                        </div>
+                        <div class="col-8" style="padding-right: 0px;margin: 0px">
+                            <input
+                            type="text"
+                            class="form-control input_login sm-ad"
+                            style="text-align: right;width: 100%;font-size: 11px"
+                            name="pre_price"
+                            #price_pre="ngModel"
+                            [(ngModel)]="register.pre_price"
+                            pattern="[0-9.]*"
+                            placeholder="HASTA"
+                            required
+                            (keypress)="onlyNumber($event)">
+                        </div>
+                      </div>
+
+                      <label  class="col-12 label_text " >Área :</label>
+                      <input type="text"
+               class="form-control input_login sm-ad"
+               style="text-align: right;width: 85%;font-size: 11px"
+               name="area"
+               placeholder="DESDE"
+               #area_="ngModel"
+               [(ngModel)]="register.area"
+               pattern="[0-9.]*"
+               required
+               (keypress)="onlyNumber($event)" >
+               <label style="color:rgb(24, 52, 207) !important; margin-left: 2px ;font-size: 13px">m2</label>
+
+               <label  class="col-12 label_text " >Vista :</label>
+               <div class="btn-group style_toggle" data-toggle="buttons" style="width: 100%;display: block">
+                  <label class="btn btn-primary ac"style="width: 33.3%;font-size: 11px;padding: .300rem .75rem;" (click)="filtro['vista'] = 'INTERNA' ">
+                    <input type="radio" name="vista" checked value="INTERNA" [(ngModel)]="register.vista">INTERNA
+                  </label>
+                  <label class="btn btn-primary ac" style="width: 33.3%;font-size: 11px;padding: .300rem .75rem;" (click)="filtro['vista'] = 'EXTERNA'  ">
+                    <input type="radio" name="vista"  value="EXTERNA" [(ngModel)]="register.vista" >EXTERNA
+                  </label>
+                  <label class="btn btn-primary ac" style="width: 33.3%;font-size: 11px;padding: .300rem .75rem;" (click)="filtro['vista'] = 'INDISTINTO' ">
+                      <input type="radio" name="vista" value="INDISTINTO" [(ngModel)]="register.vista">INDISTINTO
+                    </label>
+
+                </div>
+                <label  class="col-12 label_text " >Tipo :</label>
+                <div class="btn-group style_toggle" data-toggle="buttons"  style="width: 100%;display: block">
+                    <label class="btn btn-primary ac" style="width: 33.3%;font-size: 11px;padding: .300rem .75rem;" (click)="filtro['tipo_depa'] = 'FLAT'  ">
+                      <input type="radio" name="tipo" checked value="FLAT" [(ngModel)]="register.tipo">FLAT
+                    </label>
+                    <label class="btn btn-primary ac" style="width: 33.3%;font-size: 11px;padding: .300rem .75rem;" (click)="filtro['tipo_depa'] = 'DUPLEX' ">
+                      <input type="radio" name="tipo"  value="DUPLEX" [(ngModel)]="register.tipo">DUPLEX
+                    </label>
+                    <label class="btn btn-primary ac" style="width: 33.3%;font-size: 11px;padding: .300rem .75rem;" (click)="filtro['tipo_depa'] = 'INDISTINTO' ">
+                        <input type="radio" name="tipo"  value="INDISTINTO" [(ngModel)]="register.tipo">INDISTINTO
+                      </label>
+                  </div>
+                <label  class="col-12 label_text " >Amoblado :</label>
+
+                <div class="btn-group style_toggle" data-toggle="buttons"  style="width: 100%;display: block">
+                    <label class="btn btn-primary ac " style="width: 20%;font-size: 11px;padding: .300rem .75rem;" (click)="filtro['amoblado'] = 'FULL' ">
+                      <input type="radio" name="amoblado" checked value="FULL" [(ngModel)]="register.amoblado">FULL
+                    </label>
+                    <label class="btn btn-primary ac" style="width: 20%;font-size: 11px;padding: .300rem .75rem;" (click)="filtro['amoblado'] = 'SEMI' ">
+                      <input type="radio" name="amoblado"  value="SEMI" [(ngModel)]="register.amoblado">SEMI
+                    </label>
+                    <label class="btn btn-primary ac" style="width: 20%;font-size: 11px;padding: .300rem .75rem;" (click)="filtro['amoblado'] = 'SIN' ">
+                        <input type="radio" name="amoblado" value="SIN" [(ngModel)]="register.amoblado">SIN
+                      </label>
+                      <label class="btn btn-primary ac" style="width: 40%;font-size: 11px;padding: .300rem .75rem;" (click)="filtro['amoblado'] = 'INDISTINTO' ">
+                          <input type="radio" name="amoblado" value="INDISTINTO" [(ngModel)]="register.amoblado">INDISTINTO
+                        </label>
+
+                  </div>
+
+                  <div class="btn-group style_toggle "   style="width: 100%;margin-top:10px" >
+                      <label   class="btn btn-primary  margin0 border-b chb"  style="font-size: 10px !important;padding: 15px 0px" >
+                          <i style="font-size: 20px" class="fas fa-pallet"></i> <br>
+                        <input
+                        type="checkbox"
+                        name="terraza"
+                        [(ngModel)]="register.terraza">BALCÓN Ó TERRAZA
+                      </label>
+                      <label  class="btn btn-primary margin0 border-b border-r chb" style="font-size: 10px !important;padding: 15px 0px" >
+
+                          <i style="font-size: 20px" class="fas fa-paw"></i><br>
+                        <input
+                        type="checkbox"
+                        name="mascota"
+                        [(ngModel)]="register.mascota">MASCOTAS
+                      </label>
+                      <label  class="btn btn-primary margin0 border-b  chb" style="font-size: 10px !important;padding: 15px 0px" >
+                          <i style="font-size: 20px" class="fas fa-dolly"></i><br>
+                        <input
+                        type="checkbox"
+                        name="deposito"
+                        [(ngModel)]="register.deposito">DEPÓSITO
+                      </label>
+                      <label  class="btn btn-primary margin0 border-b  chb" style="font-size: 10px !important;padding: 15px 0px" >
+                          <i style="font-size: 20px" class="fas fa-grip-vertical"></i><br>
+                        <input
+                        type="checkbox"
+                        name="ascensor"
+                        [(ngModel)]="register.ascensor">ASCENSOR
+                      </label>
+                    </div>
+                    <div class="btn-group style_toggle "   style="width: 100%;margin:0px ;border-bottom: 0px"  >
+                        <label  class="btn btn-primary  margin0 border-b chb" style="font-size: 10px !important;padding: 15px 0px" >
+                            <i style="font-size: 20px" class="fas fa-eye"></i> <br>
+                          <input
+                          type="checkbox"
+                          name="vigilancia"
+                          [(ngModel)]="register.vigilancia">VIGILANCIA
+                        </label>
+                        <label  class="btn btn-primary margin0 border-b border-r chb" style="font-size: 10px !important;padding: 15px 0px" >
+
+                            <i style="font-size: 20px" class="fas fa-door-closed"></i><br>
+                          <input
+                          type="checkbox"
+                          name="servicio"
+                          [(ngModel)]="register.servicio">CUARTO DE SERVICIO
+                        </label>
+                        <label  class="btn btn-primary margin0 border-b chb" style="font-size: 10px !important;padding: 15px 0px" >
+                            <i  style="font-size: 20px" class="fas fa-wheelchair"></i> <br>
+                          <input
+                          type="checkbox"
+                          name="dscp"
+                          [(ngModel)]="register.dscp">ACCESO DSCSDOS
+                        </label>
+                        <label  class="btn btn-primary margin0 border-b chb" style="font-size: 10px !important;padding: 15px 0px" >
+                            <i style="font-size: 20px" class="fas fa-wine-glass-alt"></i> <br>
+                          <input
+                          type="checkbox"
+                          name="reunion"
+                          [(ngModel)]="register.reunion">SALA DE REUNIÓN
+                        </label>
+
+                      </div>
+
+                      <div class="btn-group style_toggle "      style="width: 100%"  >
+                          <label  class="btn btn-primary  margin0 chb" style="font-size: 10px !important;padding: 15px 0px" >
+                              <i style="font-size: 20px" class="fas fa-swimmer"></i><br>
+                            <input
+                            type="checkbox"
+                            name="piscina"
+                            [(ngModel)]="register.piscina">PISCINA
+                          </label>
+                          <label  class="btn btn-primary margin0 border-r chb" style="font-size: 10px !important;padding: 15px 0px" >
+
+                              <i style="font-size: 20px" class="fas fa-dumbbell"></i> <br>
+                            <input
+                            type="checkbox"
+                            name="gym"
+                            [(ngModel)]="register.gym">GIMNASIO
+                          </label>
+                          <label  class="btn btn-primary margin0 chb" style="font-size: 10px !important;padding: 15px 0px" >
+                              <i style="font-size: 20px" class="fas fa-utensils"></i> <br>
+                            <input
+                            type="checkbox"
+                            name="parrilla"
+                            [(ngModel)]="register.parrilla">PARRILLA
+                          </label>
+                          <label  class="btn btn-primary margin0 chb" style="font-size: 10px !important;padding: 15px 0px"  >
+                              <i style="font-size:20px" class="fas fa-volleyball-ball"></i><br>
+                            <input
+                            type="checkbox"
+                            name="juego"
+                            [(ngModel)]="register.juego">JUEGOS
+                          </label>
+                        </div>
+
+                      <label  class="col-12 label_text " >Estreno :</label>
+                      <div class="btn-group style_toggle" data-toggle="buttons"  style="width: 100%">
+                        <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['estreno'] = 'SI' ">
+                          <input type="radio" name="estreno" checked value="SI" [(ngModel)]="register.estreno">SI
+                        </label>
+                        <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['estreno'] = 'NO' ">
+                          <input type="radio" name="estreno" value="NO" [(ngModel)]="register.estreno">NO
+                        </label>
+
+
+                        <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['estreno'] = 'INDISTINTO' ">
+                          <input type="radio" name="estreno" value="INDISTINTO" [(ngModel)]="register.estreno">INDISTINTO
+                        </label>
+
+                      </div>
+                      <label  class="col-12 label_text " >Proyecto :</label>
+                      <div class="btn-group style_toggle" data-toggle="buttons"  style="width: 100%">
+                        <label class="btn btn-primary ac " style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['proyecto'] = 'SI' ">
+                          <input type="radio" name="proyecto" checked value="SI" [(ngModel)]="register.proyecto">SI
+                        </label>
+                        <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['proyecto'] = 'NO' ">
+                          <input type="radio" name="proyecto" value="NO" [(ngModel)]="register.proyecto">NO
+                        </label>
+                        <label class="btn btn-primary ac" style="font-size: 11px;padding: .300rem .75rem" (click)="filtro['proyecto'] = 'INDISTINTO' ">
+                          <input type="radio" name="proyecto" value="INDISTINTO" [(ngModel)]="register.proyecto">INDISTINTO
+                        </label>
+
+
+                     </div>
+
+
+
+
+    </div>
+
+<div class="col-lg-9"  >
+
+  <div *ngIf="count0" class="sresul">
+    <span>Opps,no se encontraron resultados...</span>
+  </div>
+
+  <div *ngIf="count">
+   <div class="filter_se text-right" >
+     <span>Ordenar solicitudes : </span>
+     <select [(ngModel)]="ordenar" (change)="f_or()">
+      <option value="desc" selected>RECIENTE</option>
+      <option value="asc">ANTIGUO</option>
+    </select>
+   </div>
+  <!-- <div *ngIf="_rentalPublications != null && _rentalPublications.length > 0" class="col-sm-12"> -->
+  <div *ngFor="let item of data | paginate: {id: 'search', itemsPerPage: 6, currentPage: p } " >
+    <br>
+      <div class="item row" style="margin: 0px" >
+
+          <div class="col-sm-4 padding" *ngIf="item.radio.length > 0">
+              <agm-map  [scrollwheel]="false"  [latitude]="setmapalat(item.radio[0])" [longitude]="setmapalon(item.radio[0])"[zoom]="12" >
+                  <agm-circle *ngFor="let m of item.radio;let indice=index" [latitude]="setmapalat(m)" [longitude]="setmapalon(m)"
+                 [radius]="700"
+                 [fillColor]="colors[indice]">
+                 </agm-circle>
+              </agm-map>
+          </div>
+          <div class="col-sm-4 padding" *ngIf="item.radio.length === 0">
+              <agm-map [scrollwheel]="false" [latitude]="-12.114090" [longitude]="-77.027842" [zoom]="13" >
+
+              </agm-map>
+          </div>
+
+
+          <div class="col-sm-8  padding" (click)="viewSolicitud(item.id_solicitud)">
+              <div class="maps-renta row" style="margin:0px">
+
+                      <div class="col-6 margin_p text-left " >
+                          <div class="name-busca "><i class="fas fa-user"></i>{{user[item.id_user]}} BUSCA:</div>
+                      </div>
+                      <div class="col-6 margin_p text-right " >
+                          <div *ngIf="item.operacion == 'VENTA'">
+
+                              <div class="estados">COMPRAR</div>
+                          </div>
+                          <div *ngIf="item.operacion == 'ALQUILER'">
+
+                              <div class="estados">ALQUILAR</div>
+                          </div>
+                          <div *ngIf="item.operacion == 'VACACIONAL'">
+
+                              <div class="estados">VACACIONAR</div>
+                          </div>
+                      </div>
+                      <div class="col-12 margin_p text-right" *ngIf="item.distrito.length>0" >
+                          <div class="d-inline-flex" *ngFor="let m of item.distrito" >{{setDistrito(m)}}-</div><i class="fas fa-map-marker-alt"></i>
+                      </div>
+                      <div class="col-12 margin_p text-right" *ngIf="item.distrito.length===0" >
+                          <div class="d-inline-flex">Selección por Área     <i class="fas fa-map-marker-alt"></i></div>
+                      </div>
+
+                      <div class="col-12 margin_p"  >
+                        <div class="row" style="margin:0px">
+                          <div class="col-6 " style="padding-left: 0px;padding-right: 5px">
+                            <div class="border_s">
+                                <i class="fas fa-home"></i><span class="text-right" >{{item.tipo_departamento}}</span>
+                          </div>
+                        </div>
+                          <div class="col-6 " style="padding-right: 0px;padding-left: 5px">
+                              <div *ngIf="item.cuartos==1">
+                                  <div class="border_s">
+                                      <i class="fas fa-bed"></i><span class="text-right" >{{item.cuartos}} DORMITORIO A+</span>
+                                    </div>
+                              </div>
+                              <div *ngIf="item.cuartos>1">
+                                  <div class="border_s">
+                                      <i class="fas fa-bed"></i><span class="text-right" >{{item.cuartos}} DORMITORIOS A+</span>
+                                    </div>
+                                </div>
+                          </div>
+                        </div>
+                      </div >
+                      <br>
+                      <div class="col-12 margin_p_10"  >
+                          <div class="row" style="margin:0px">
+
+                              <div class="col-lg-3 col-md-3 col-6 pl" >
+                              <div class="border_s"><i class="fab fa-medium"></i><span class="text-right" >{{item.area}} M² A+</span>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-6 plr">
+                                <div *ngIf="item.bano==1">
+                                    <div class="border_s"><i class="fas fa-toilet"></i><span class="text-right" >{{item.bano}} BAÑO A+</span>
+                                    </div>
+                                  </div>
+                                  <div *ngIf="item.bano>1">
+                                      <div class="border_s"><i class="fas fa-toilet"></i><span class="text-right" >{{item.bano}} BAÑOS A+</span>
+                                      </div>
+                                    </div>
+                            </div>
+
+                            <div class="col-lg-5 col-md-5 col-sm-12 pr" >
+                              <div class="border_s"><i class="fas fa-dollar-sign"></i><span class="text-right" >{{item.presupuesto.precio | currency:" "}} {{item.presupuesto.moneda}}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+
+              </div>
+          </div>
+      </div>
+
+  </div>
+
+  <br>
+  <div class="col-12 text-center">
+    <pagination-controls
+   (pageChange)="p = $event"
+   previousLabel="<"
+   nextLabel=">"
+   id="search"
+   >
+  </pagination-controls>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="icon-bar">
+  <a (click)="buscar()" class="bl" title="Filtrar"><i class="fas fa-search"></i></a>
+  <a (click)="borrar()" class="rd" title="Borrar Filtro"><i class="fas fa-trash"></i></a>
+</div>
+
+
+<ngx-spinner
+bdOpacity = 0.5
+bdColor = "rgba(0,0,0,0.9)"
+size = "large"
+color = "#ffffff"
+type = "ball-clip-rotate-multiple"
+fullScreen = "true"
+>
+</ngx-spinner>
